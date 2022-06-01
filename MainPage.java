@@ -15,13 +15,13 @@ import javafx.scene.text.FontPosture;
 
 /**
 *Represents MainPage named MainPage.
+* Note: Please add commons or JavaDocs description when you add something
 *@author Xisheng Zhang, Qihui Wang, Porter Zach, Xueqing Li, and Shane Sinnerine.
 *@version 1.0.
 */
 public class MainPage extends Application {
     /**
     * Creat the main method.
-    * Please add commons or JavaDocs description when you add something
     * @param args take in
     */
     public static void main(String[] args) {
@@ -43,11 +43,11 @@ public class MainPage extends Application {
 
         Button bt = new Button("Start game");
         VBox vbox = new VBox(400);
-        vbox.getChildren().addAll(tx1, bt);
+        vbox.getChildren().addAll(tx1, bt);  // I made a VBox to hold the game name and button for start the game.
         vbox.setAlignment(Pos.CENTER);
         bp.setCenter(vbox);
-        sp.setAlignment(bp, Pos.CENTER);
-        sp.getChildren().addAll(bp);
+        sp.setAlignment(bp, Pos.CENTER);  // set center
+        sp.getChildren().addAll(bp); // the stackPane hod the Boderpane.
 
         stage.show();
     }
