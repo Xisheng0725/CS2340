@@ -58,19 +58,26 @@ public class MainPage extends Application {
         StackPane secondMain = new StackPane();
         BorderPane secondBP = new BorderPane();
         Scene scene2 = new Scene(secondMain, 1300, 900);
-        HBox hbox = new HBox(100);
+        // return Button
+        Button returnTo = new Button("Return to Main Page");
 
+        // Three game place holder.
+        HBox hbox = new HBox(100);
         Rectangle game1 = new Rectangle(250, 250);
         Rectangle game2 = new Rectangle(250, 250);
         Rectangle game3 = new Rectangle(250, 250);
         hbox.getChildren().addAll(game1, game2, game3);
         hbox.setAlignment(Pos.CENTER);
+
         secondBP.setCenter(hbox);
+        secondBP.setLeft(returnTo);
         secondMain.setAlignment(secondBP, Pos.CENTER);
         secondMain.getChildren().addAll(secondBP);
 
+
         bt.setOnAction(e -> stage.setScene(scene2));
 
+        returnTo.setOnAction(e -> stage.setScene(scene));
 
 
         stage.show();
