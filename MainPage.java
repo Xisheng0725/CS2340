@@ -71,6 +71,8 @@ public class MainPage extends Application {
 
         secondBP.setCenter(hbox);
         secondBP.setLeft(returnTo);
+        returnTo.setTranslateX(30);
+        returnTo.setTranslateY(30);
         secondMain.setAlignment(secondBP, Pos.CENTER);
         secondMain.getChildren().addAll(secondBP);
 
