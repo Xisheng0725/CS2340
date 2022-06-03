@@ -42,15 +42,19 @@ public class MainPage extends Application {
      * @param stage take in
      */
     public void start(Stage stage) {
-        stage.setTitle("Game Suit"); // When can change when we find a better name.
+
+        //Set up main stage and initial scene. This scene acts as the homepage.
+        stage.setTitle("Casino Royale Deluxe");
         StackPane firstMain = new StackPane();
         BorderPane firstBP = new BorderPane();
         Scene scene = new Scene(firstMain, 1300, 900);
         stage.setScene(scene);
 
-        Text tx1 = new Text("Game Name"); // when can decide later
+        //Set and customize home screen title
+        Text tx1 = new Text("Casino Royale Deluxe");
         tx1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
 
+        //Add elements to home screen scene
         Button bt = new Button("Start game");
         VBox vbox = new VBox(400);
         vbox.getChildren().addAll(tx1, bt);
@@ -64,10 +68,11 @@ public class MainPage extends Application {
         StackPane secondMain = new StackPane();
         BorderPane secondBP = new BorderPane();
         Scene scene2 = new Scene(secondMain, 1300, 900);
+
         // return Button
         Button returnTo = new Button("Return to Main Page");
 
-        // Three game place holder.
+        // Load icons for all three games.
         HBox hbox = new HBox(100);
         ImageView battleshipImageView = getImageView("/battleship.JPG", 200, 250);
         ImageView blackjackImageView = getImageView("/blackjack.JPG", 200, 250);
@@ -75,6 +80,7 @@ public class MainPage extends Application {
         hbox.getChildren().addAll(battleshipImageView, blackjackImageView, colorImageView);
         hbox.setAlignment(Pos.CENTER);
 
+        //Format "game selection" scene
         secondBP.setCenter(hbox);
         secondBP.setLeft(returnTo);
         returnTo.setTranslateX(30);
@@ -82,15 +88,21 @@ public class MainPage extends Application {
         secondMain.setAlignment(secondBP, Pos.CENTER);
         secondMain.getChildren().addAll(secondBP);
 
-
+        //Map what should happen when start and return buttons are clicked
         bt.setOnAction(e -> stage.setScene(scene2));
-
         returnTo.setOnAction(e -> stage.setScene(scene));
 
-
+        //Show primary stage
         stage.show();
     }
 
+    /**
+     *
+     * @param fileName name of image file to be loaded
+     * @param height height of image file for display
+     * @param width width of image file for display
+     * @return ImageView of image passed in with requested height and width
+     */
     private ImageView getImageView(String fileName, int height, int width) {
         Image image = new Image(fileName);
         ImageView imageView = new ImageView(image);
