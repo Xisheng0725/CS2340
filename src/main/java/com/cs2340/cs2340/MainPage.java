@@ -47,7 +47,7 @@ public class MainPage extends Application {
         StackPane homeMain = new StackPane();
         homeMain.setStyle("-fx-background-color: azure");
         BorderPane homeBP = new BorderPane();
-        ImageView homeTitle = getImageView("/royale.PNG", 300, 800);
+        ImageView homeTitle = getImageView("/royale2.PNG", 420, 800);
         ImageView icons = getImageView("/icons.PNG", 300, 900);
 
 
@@ -72,9 +72,10 @@ public class MainPage extends Application {
         ImageView selectBsImageView = getImageView("/battleship.JPG", 200, 250);
         ImageView selectBjImageView = getImageView("/blackjack.JPG", 200, 250);
         ImageView selectClrImageView = getImageView("/color.JPG", 200, 250);
+        ImageView selectionTitle = getImageView("/royale.PNG", 250, 800);
 
         //create and format selection scene
-        formatSelectScene(selectMain, selectBP, selectReturn, hbox, selectBsImageView, selectBjImageView, selectClrImageView, selectBsInfo, selectBjInfo, selectClrInfo);
+        formatSelectScene(selectMain, selectBP, selectReturn, hbox, selectBsImageView, selectBjImageView, selectClrImageView, selectBsInfo, selectBjInfo, selectClrInfo, selectionTitle);
         Scene selectScene = new Scene(selectMain, 1200, 800);
 
         //Create temporary construction scene
@@ -127,7 +128,7 @@ public class MainPage extends Application {
     }
 
     private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV,
-                                   ImageView clrIV, Button bsInfo, Button bjInfo, Button clrInfo) {
+                                   ImageView clrIV, Button bsInfo, Button bjInfo, Button clrInfo, ImageView selectionTitle) {
         VBox bsVBox = new VBox();
         bsVBox.setSpacing(10);
         bsVBox.getChildren().addAll(bsIV, bsInfo);
@@ -146,10 +147,15 @@ public class MainPage extends Application {
         hbox.getChildren().addAll(bsVBox, bjVBox, clrVBox);
         hbox.setAlignment(Pos.CENTER);
 
+
         bp.setCenter(hbox);
-        bp.setLeft(retBtn);
+        bp.setTop(selectionTitle);
+        bp.setBottom(retBtn);
+        selectionTitle.setTranslateX(200);
+        selectionTitle.setTranslateY(25);
+        hbox.setTranslateY(-90);
         retBtn.setTranslateX(30);
-        retBtn.setTranslateY(30);
+        retBtn.setTranslateY(-30);
         main.setAlignment(bp, Pos.CENTER);
         main.getChildren().addAll(bp);
     }
@@ -162,7 +168,7 @@ public class MainPage extends Application {
      */
     private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons) {
         //Add elements to home screen scene
-        VBox vbox = new VBox(80);
+        VBox vbox = new VBox(40);
         vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
