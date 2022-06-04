@@ -93,6 +93,9 @@ public class MainPage extends Application {
 
         //Selection screen event mapping
         selectReturn.setOnAction(e -> primaryStage.setScene(homeScene));
+
+
+        // set animation and MouseClickedAction
         selectBjImageView.setOnMouseClicked(new EventHandler<MouseEvent>(){
             public void handle(MouseEvent event) {
                 FadeTransition fadeBj = new FadeTransition(Duration.millis(1500), selectBjImageView);
@@ -116,6 +119,8 @@ public class MainPage extends Application {
                 }) ;
             }
         });
+
+        // set animation and MouseClickedAction
         selectBsImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event2) {
                 FadeTransition fadeBS = new FadeTransition(Duration.millis(1500), selectBsImageView);
@@ -139,6 +144,8 @@ public class MainPage extends Application {
                 }) ;
             }
         });
+
+        // set animation and MouseClickedAction
         selectClrImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
             public void handle(MouseEvent event3) {
                 FadeTransition fadeBj = new FadeTransition(Duration.millis(1500), selectBjImageView);
@@ -195,7 +202,19 @@ public class MainPage extends Application {
         selectClrInfo.setStyle((cssStyle));
         tempBackBtn.setStyle((cssStyle));
     }
-
+    /**
+     * change the layout of main page.
+     * @param main is a stackpane for main
+     * @param bp BoardPane
+     * @param retBtn return button
+     * @param bsInfo info button
+     * @param clrInfo info button
+     * @param hbox hbox
+     * @param bsIV image
+     * @param bjIV image
+     * @param clrIV image
+     * @param selectionTitle image
+     */
     private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV,
                                    ImageView clrIV, Button bsInfo, Button bjInfo, Button clrInfo, ImageView selectionTitle) {
         VBox bsVBox = new VBox();
