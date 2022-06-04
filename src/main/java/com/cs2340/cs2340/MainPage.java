@@ -9,18 +9,12 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
-import javafx.scene.control.TextField;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Pos;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.FontPosture;
-import javafx.event.ActionEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
-
-import java.io.FileInputStream;
 
 /**
  *Represents MainPage named MainPage.
@@ -48,8 +42,8 @@ public class MainPage extends Application {
         BorderPane homeBP = new BorderPane();
         Text homeTitleTxt = new Text("Casino Royale Deluxe");
 
-        //Format all objects on homeScreen
-        createHomeScene(homeStartBtn, homeMain, homeBP, homeTitleTxt);
+        //Create and format homeScreen
+        formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitleTxt);
         Scene homeScene = new Scene(homeMain, 1300, 900);
         
         //Set up primary stage
@@ -66,7 +60,7 @@ public class MainPage extends Application {
         ImageView colorImageView = getImageView("/color.JPG", 200, 250);
 
         //create and format selection scene
-        createSelectScene(selectMain, selectBP, selectReturn, hbox, battleshipImageView, blackjackImageView, colorImageView);
+        formatSelectScene(selectMain, selectBP, selectReturn, hbox, battleshipImageView, blackjackImageView, colorImageView);
         Scene selectScene = new Scene(selectMain, 1300, 900);
 
         //Home Screen event mapping
@@ -79,7 +73,7 @@ public class MainPage extends Application {
         primaryStage.show();
     }
 
-    private void createSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV, ImageView clrIV) {
+    private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV, ImageView clrIV) {
         hbox.getChildren().addAll(bsIV, bjIV, clrIV);
         hbox.setAlignment(Pos.CENTER);
         bp.setCenter(hbox);
@@ -97,7 +91,7 @@ public class MainPage extends Application {
      * @param homeBP borderpane to create home scene with
      * @param homeTitleTxt game title
      */
-    private void createHomeScene(Button btnStart, StackPane homeScreen, BorderPane homeBP, Text homeTitleTxt) {
+    private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, Text homeTitleTxt) {
         //Add elements to home screen scene
         VBox vbox = new VBox(400);
         vbox.getChildren().addAll(homeTitleTxt, btnStart);
