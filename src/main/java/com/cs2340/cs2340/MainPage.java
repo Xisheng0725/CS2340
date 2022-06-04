@@ -21,7 +21,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Rectangle;
 
 import java.io.FileInputStream;
-//Test
 
 /**
  *Represents MainPage named MainPage.
@@ -39,30 +38,21 @@ public class MainPage extends Application {
     }
     /**
      * Creat the start method that using for main page GUI.
-     * @param stage take in
+     * @param primaryStage take in
      */
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
 
-        //Set up main stage and initial scene. This scene acts as the homepage.
-        stage.setTitle("Casino Royale Deluxe");
-        StackPane firstMain = new StackPane();
-        BorderPane firstBP = new BorderPane();
-        Scene scene = new Scene(firstMain, 1300, 900);
-        stage.setScene(scene);
+        //Create all objects to be placed on home screen.
+        Button homeStartBtn = new Button("Start game");
+        StackPane homeMain = new StackPane();
+        BorderPane homeBP = new BorderPane();
+        Text homeTitleTxt = new Text("Casino Royale Deluxe");
 
-        //Set and customize home screen title
-        Text tx1 = new Text("Casino Royale Deluxe");
-        tx1.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
-
-        //Add elements to home screen scene
-        Button bt = new Button("Start game");
-        VBox vbox = new VBox(400);
-        vbox.getChildren().addAll(tx1, bt);
-        vbox.setAlignment(Pos.CENTER);
-        firstBP.setCenter(vbox);
-        firstMain.setAlignment(firstBP, Pos.CENTER);
-        firstMain.getChildren().addAll(firstBP);
-
+        //Format all objects on homeScreen and set up primaryStage
+        createHomeScene(homeStartBtn, homeMain, homeBP, homeTitleTxt);
+        Scene homeScene = new Scene(homeMain, 1300, 900);
+        primaryStage.setTitle("Casino Royale Deluxe");
+        primaryStage.setScene(homeScene);
 
         // second main page which show 3 games.
         StackPane secondMain = new StackPane();
@@ -89,11 +79,29 @@ public class MainPage extends Application {
         secondMain.getChildren().addAll(secondBP);
 
         //Map what should happen when start and return buttons are clicked
-        bt.setOnAction(e -> stage.setScene(scene2));
-        returnTo.setOnAction(e -> stage.setScene(scene));
+        homeStartBtn.setOnAction(e -> primaryStage.setScene(scene2));
+        returnTo.setOnAction(e -> primaryStage.setScene(homeScene));
 
         //Show primary stage
-        stage.show();
+        primaryStage.show();
+    }
+
+    /**
+     *
+     * @param btnStart Start button
+     * @param homeScreen stackPane to create scene with
+     * @param homeBP borderpane to create home scene with
+     * @param homeTitleTxt game title
+     */
+    private void createHomeScene(Button btnStart, StackPane homeScreen, BorderPane homeBP, Text homeTitleTxt) {
+        //Add elements to home screen scene
+        VBox vbox = new VBox(400);
+        vbox.getChildren().addAll(homeTitleTxt, btnStart);
+        vbox.setAlignment(Pos.CENTER);
+        homeBP.setCenter(vbox);
+        homeScreen.setAlignment(homeBP, Pos.CENTER);
+        homeScreen.getChildren().addAll(homeBP);
+        homeTitleTxt.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
     }
 
     /**
