@@ -1,29 +1,22 @@
 package com.cs2340.cs2340;
 
-import javafx.animation.Animation;
-import javafx.animation.ParallelTransition;
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.stage.Stage;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
-import javafx.geometry.Pos;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.FontPosture;
 import javafx.animation.FadeTransition;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -48,13 +41,10 @@ public class MainPage extends Application {
 
         //Create all objects to be placed on home screen.
         Button homeStartBtn = new Button("Start game");
-        String css = "-fx-background-color:  #3c7fb1, linear-gradient(#fafdfe, #e8f5fc), linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);" +
-                "-fx-background-insets: 0,1,2;" + " -fx-background-radius: 3,2,1;" + "-fx-padding: 3 30 3 30;" + "-fx-text-fill: black;" +  "-fx-font-size: 14px;";
-        homeStartBtn.setStyle(css);
         StackPane homeMain = new StackPane();
         homeMain.setStyle("-fx-background-color: azure");
         BorderPane homeBP = new BorderPane();
-        ImageView homeTitle = getImageView("/royale2.PNG", 420, 800);
+        ImageView homeTitle = getImageView("/royale2.PNG", 420, 700);
         ImageView icons = getImageView("/icons.PNG", 300, 900);
 
 
@@ -96,7 +86,7 @@ public class MainPage extends Application {
         Scene tempScene = new Scene(tempBP, 1200, 800);
 
         // setButton Style
-        gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn);
+        gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
 
         //Home Screen event mapping
         homeStartBtn.setOnAction(e -> primaryStage.setScene(selectScene));
@@ -187,12 +177,18 @@ public class MainPage extends Application {
      * @param selectClrInfo Info Button
      * @param tempBackBtn Back Button
      */
-    private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button tempBackBtn) {
+    private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button tempBackBtn, Button homeStartBtn) {
         String cssStyle = " -fx-text-fill: #006464;\n" +
                 "    -fx-background-color: #DFB951;\n" +
                 "    -fx-border-radius: 20;\n" +
                 "    -fx-background-radius: 20;\n" +
                 "    -fx-padding: 5;";
+        String cssForHome = " -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 30;\n" +
+                "    -fx-background-radius: 90;\n" +
+                "    -fx-padding: 20;";
+        homeStartBtn.setStyle(cssForHome);
         selectReturn.setStyle((cssStyle));
         selectBsInfo.setStyle((cssStyle));
         selectBjInfo.setStyle((cssStyle));
@@ -241,7 +237,7 @@ public class MainPage extends Application {
      */
     private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons) {
         //Add elements to home screen scene
-        VBox vbox = new VBox(40);
+        VBox vbox = new VBox(20);
         vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
