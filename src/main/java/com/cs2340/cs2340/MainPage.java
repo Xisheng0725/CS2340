@@ -1,6 +1,7 @@
 package com.cs2340.cs2340;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,7 +24,7 @@ import javafx.scene.text.FontPosture;
  */
 public class MainPage extends Application {
     /**
-     * Creat the main method.
+     * Create the main method.
      * Please add commons or JavaDocs description when you add something
      * @param args take in
      */
@@ -31,7 +32,7 @@ public class MainPage extends Application {
         launch(args);
     }
     /**
-     * Creat the start method that using for main page GUI.
+     * Create the start method that using for main page GUI.
      * @param primaryStage take in
      */
     public void start(Stage primaryStage) {
@@ -44,7 +45,7 @@ public class MainPage extends Application {
 
         //Create and format homeScreen
         formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitleTxt);
-        Scene homeScene = new Scene(homeMain, 1300, 900);
+        Scene homeScene = new Scene(homeMain, 1200, 800);
         
         //Set up primary stage
         primaryStage.setTitle("Casino Royale Deluxe");
@@ -54,28 +55,64 @@ public class MainPage extends Application {
         StackPane selectMain = new StackPane();
         BorderPane selectBP = new BorderPane();
         Button selectReturn = new Button("Return to Main Page");
+        Button selectBsInfo = new Button("Instructions");
+        Button selectBjInfo = new Button("Instructions");
+        Button selectClrInfo = new Button("Instructions");
         HBox hbox = new HBox(100);
-        ImageView battleshipImageView = getImageView("/battleship.JPG", 200, 250);
-        ImageView blackjackImageView = getImageView("/blackjack.JPG", 200, 250);
-        ImageView colorImageView = getImageView("/color.JPG", 200, 250);
+        ImageView selectBsImageView = getImageView("/battleship.JPG", 200, 250);
+        ImageView selectBjImageView = getImageView("/blackjack.JPG", 200, 250);
+        ImageView selectClrImageView = getImageView("/color.JPG", 200, 250);
 
         //create and format selection scene
-        formatSelectScene(selectMain, selectBP, selectReturn, hbox, battleshipImageView, blackjackImageView, colorImageView);
-        Scene selectScene = new Scene(selectMain, 1300, 900);
+        formatSelectScene(selectMain, selectBP, selectReturn, hbox, selectBsImageView, selectBjImageView, selectClrImageView, selectBsInfo, selectBjInfo, selectClrInfo);
+        Scene selectScene = new Scene(selectMain, 1200, 800);
+
+        //Create temporary construction scene
+        Text tempTxt = new Text("This page is under construction...");
+        Button tempBackBtn = new Button("Return");
+        BorderPane tempBP = new BorderPane();
+        tempBP.setCenter(tempTxt);
+        tempBP.setBottom(tempBackBtn);
+        tempBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
+        tempBP.setPadding(new Insets(20, 20, 20, 20));
+        Scene tempScene = new Scene(tempBP, 1200, 800);
 
         //Home Screen event mapping
         homeStartBtn.setOnAction(e -> primaryStage.setScene(selectScene));
 
         //Selection screen event mapping
         selectReturn.setOnAction(e -> primaryStage.setScene(homeScene));
+        selectBjImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
+        selectBsImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
+        selectClrImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
+        selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectClrInfo.setOnAction(e -> primaryStage.setScene(tempScene));
 
         //Show primary stage
         primaryStage.show();
     }
 
-    private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV, ImageView clrIV) {
-        hbox.getChildren().addAll(bsIV, bjIV, clrIV);
+    private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV,
+                                   ImageView clrIV, Button bsInfo, Button bjInfo, Button clrInfo) {
+        VBox bsVBox = new VBox();
+        bsVBox.setSpacing(10);
+        bsVBox.getChildren().addAll(bsIV, bsInfo);
+        bsVBox.setAlignment(Pos.CENTER);
+
+        VBox bjVBox = new VBox();
+        bjVBox.setSpacing(10);
+        bjVBox.getChildren().addAll(bjIV, bjInfo);
+        bjVBox.setAlignment(Pos.CENTER);
+
+        VBox clrVBox = new VBox();
+        clrVBox.setSpacing(10);
+        clrVBox.getChildren().addAll(clrIV, clrInfo);
+        clrVBox.setAlignment(Pos.CENTER);
+
+        hbox.getChildren().addAll(bsVBox, bjVBox, clrVBox);
         hbox.setAlignment(Pos.CENTER);
+
         bp.setCenter(hbox);
         bp.setLeft(retBtn);
         retBtn.setTranslateX(30);
