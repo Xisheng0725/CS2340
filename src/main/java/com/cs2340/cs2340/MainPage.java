@@ -48,42 +48,46 @@ public class MainPage extends Application {
         BorderPane homeBP = new BorderPane();
         Text homeTitleTxt = new Text("Casino Royale Deluxe");
 
-        //Format all objects on homeScreen and set up primaryStage
+        //Format all objects on homeScreen
         createHomeScene(homeStartBtn, homeMain, homeBP, homeTitleTxt);
         Scene homeScene = new Scene(homeMain, 1300, 900);
+        
+        //Set up primary stage
         primaryStage.setTitle("Casino Royale Deluxe");
         primaryStage.setScene(homeScene);
 
-        // second main page which show 3 games.
-        StackPane secondMain = new StackPane();
-        BorderPane secondBP = new BorderPane();
-        Scene scene2 = new Scene(secondMain, 1300, 900);
-
-        // return Button
-        Button returnTo = new Button("Return to Main Page");
-
-        // Load icons for all three games.
+        //Create objects needed for selection page.
+        StackPane selectMain = new StackPane();
+        BorderPane selectBP = new BorderPane();
+        Button selectReturn = new Button("Return to Main Page");
         HBox hbox = new HBox(100);
         ImageView battleshipImageView = getImageView("/battleship.JPG", 200, 250);
         ImageView blackjackImageView = getImageView("/blackjack.JPG", 200, 250);
         ImageView colorImageView = getImageView("/color.JPG", 200, 250);
-        hbox.getChildren().addAll(battleshipImageView, blackjackImageView, colorImageView);
-        hbox.setAlignment(Pos.CENTER);
 
-        //Format "game selection" scene
-        secondBP.setCenter(hbox);
-        secondBP.setLeft(returnTo);
-        returnTo.setTranslateX(30);
-        returnTo.setTranslateY(30);
-        secondMain.setAlignment(secondBP, Pos.CENTER);
-        secondMain.getChildren().addAll(secondBP);
+        //create and format selection scene
+        createSelectScene(selectMain, selectBP, selectReturn, hbox, battleshipImageView, blackjackImageView, colorImageView);
+        Scene selectScene = new Scene(selectMain, 1300, 900);
 
-        //Map what should happen when start and return buttons are clicked
-        homeStartBtn.setOnAction(e -> primaryStage.setScene(scene2));
-        returnTo.setOnAction(e -> primaryStage.setScene(homeScene));
+        //Home Screen event mapping
+        homeStartBtn.setOnAction(e -> primaryStage.setScene(selectScene));
+
+        //Selection screen event mapping
+        selectReturn.setOnAction(e -> primaryStage.setScene(homeScene));
 
         //Show primary stage
         primaryStage.show();
+    }
+
+    private void createSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV, ImageView clrIV) {
+        hbox.getChildren().addAll(bsIV, bjIV, clrIV);
+        hbox.setAlignment(Pos.CENTER);
+        bp.setCenter(hbox);
+        bp.setLeft(retBtn);
+        retBtn.setTranslateX(30);
+        retBtn.setTranslateY(30);
+        main.setAlignment(bp, Pos.CENTER);
+        main.getChildren().addAll(bp);
     }
 
     /**
