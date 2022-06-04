@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -13,6 +14,7 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.scene.layout.BorderPane;
 import javafx.geometry.Pos;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.FontPosture;
@@ -40,12 +42,16 @@ public class MainPage extends Application {
         //Create all objects to be placed on home screen.
         Button homeStartBtn = new Button("Start game");
         StackPane homeMain = new StackPane();
+        homeMain.setStyle("-fx-background-color: azure");
         BorderPane homeBP = new BorderPane();
-        Text homeTitleTxt = new Text("Casino Royale Deluxe");
+        ImageView homeTitle = getImageView("/royale.PNG", 300, 800);
+        ImageView icons = getImageView("/icons.PNG", 300, 900);
+
 
         //Create and format homeScreen
-        formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitleTxt);
+        formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitle, icons);
         Scene homeScene = new Scene(homeMain, 1200, 800);
+
         
         //Set up primary stage
         primaryStage.setTitle("Casino Royale Deluxe");
@@ -53,6 +59,7 @@ public class MainPage extends Application {
 
         //Create objects needed for selection page.
         StackPane selectMain = new StackPane();
+        selectMain.setStyle("-fx-background-color: azure");
         BorderPane selectBP = new BorderPane();
         Button selectReturn = new Button("Return to Main Page");
         Button selectBsInfo = new Button("Instructions");
@@ -126,17 +133,15 @@ public class MainPage extends Application {
      * @param btnStart Start button
      * @param homeScreen stackPane to create scene with
      * @param homeBP borderpane to create home scene with
-     * @param homeTitleTxt game title
      */
-    private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, Text homeTitleTxt) {
+    private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons) {
         //Add elements to home screen scene
-        VBox vbox = new VBox(400);
-        vbox.getChildren().addAll(homeTitleTxt, btnStart);
+        VBox vbox = new VBox(80);
+        vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
         homeScreen.setAlignment(homeBP, Pos.CENTER);
         homeScreen.getChildren().addAll(homeBP);
-        homeTitleTxt.setFont(Font.font("verdana", FontWeight.BOLD, FontPosture.REGULAR, 50));
     }
 
     /**
