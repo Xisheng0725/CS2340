@@ -1,5 +1,7 @@
 package com.cs2340.cs2340;
 
+import javafx.animation.Animation;
+import javafx.animation.ParallelTransition;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
@@ -18,6 +20,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.FontPosture;
+import javafx.animation.FadeTransition;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.input.MouseEvent;
+import javafx.util.Duration;
 
 /**
  *Represents MainPage named MainPage.
@@ -96,9 +103,75 @@ public class MainPage extends Application {
 
         //Selection screen event mapping
         selectReturn.setOnAction(e -> primaryStage.setScene(homeScene));
-        selectBjImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
-        selectBsImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
-        selectClrImageView.setOnMouseClicked(e -> primaryStage.setScene(tempScene));
+        selectBjImageView.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            public void handle(MouseEvent event) {
+                FadeTransition fadeBj = new FadeTransition(Duration.millis(1500), selectBjImageView);
+                FadeTransition fadeClr = new FadeTransition(Duration.millis(1500), selectClrImageView);
+                fadeBj.setFromValue(10);
+                fadeBj.setToValue(0.1);
+                fadeBj.setCycleCount(2);
+                fadeBj.play();
+
+                fadeClr.setFromValue(10);
+                fadeClr.setToValue(1);
+                fadeClr.setCycleCount(1);
+                fadeClr.play();
+
+                fadeClr.setOnFinished(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        fadeBj.stop();
+                        fadeClr.stop();
+                        primaryStage.setScene(tempScene);
+                    }
+                }) ;
+            }
+        });
+        selectBsImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event2) {
+                FadeTransition fadeBS = new FadeTransition(Duration.millis(1500), selectBsImageView);
+                FadeTransition fadeClr = new FadeTransition(Duration.millis(1500), selectClrImageView);
+                fadeBS.setFromValue(10);
+                fadeBS.setToValue(0.1);
+                fadeBS.setCycleCount(2);
+                fadeBS.play();
+
+                fadeClr.setFromValue(10);
+                fadeClr.setToValue(1);
+                fadeClr.setCycleCount(1);
+                fadeClr.play();
+
+                fadeClr.setOnFinished(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        fadeBS.stop();
+                        fadeClr.stop();
+                        primaryStage.setScene(tempScene);
+                    }
+                }) ;
+            }
+        });
+        selectClrImageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            public void handle(MouseEvent event3) {
+                FadeTransition fadeBj = new FadeTransition(Duration.millis(1500), selectBjImageView);
+                FadeTransition fadeClr = new FadeTransition(Duration.millis(1500), selectClrImageView);
+                fadeClr.setFromValue(10);
+                fadeClr.setToValue(0.1);
+                fadeClr.setCycleCount(2);
+                fadeClr.play();
+
+                fadeBj.setFromValue(10);
+                fadeBj.setToValue(1);
+                fadeBj.setCycleCount(1);
+                fadeBj.play();
+
+                fadeBj.setOnFinished(new EventHandler<ActionEvent>() {
+                    public void handle(ActionEvent e) {
+                        fadeBj.stop();
+                        fadeClr.stop();
+                        primaryStage.setScene(tempScene);
+                    }
+                }) ;
+            }
+        });
         selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectClrInfo.setOnAction(e -> primaryStage.setScene(tempScene));
