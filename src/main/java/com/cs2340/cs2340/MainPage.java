@@ -105,6 +105,14 @@ public class MainPage extends Application {
         //Show primary stage
         primaryStage.show();
     }
+    /**
+     * change the button style.
+     * @param selectReturn Return button
+     * @param selectBsInfo Info button
+     * @param selectBjInfo Info Button
+     * @param selectClrInfo Info Button
+     * @param tempBackBtn Back Button
+     */
     private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button tempBackBtn) {
         String cssStyle = " -fx-text-fill: #006464;\n" +
                 "    -fx-background-color: #DFB951;\n" +
