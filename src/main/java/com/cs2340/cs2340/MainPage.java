@@ -41,6 +41,9 @@ public class MainPage extends Application {
 
         //Create all objects to be placed on home screen.
         Button homeStartBtn = new Button("Start game");
+        String css = "-fx-background-color:  #3c7fb1, linear-gradient(#fafdfe, #e8f5fc), linear-gradient(#eaf6fd 0%, #d9f0fc 49%, #bee6fd 50%, #a7d9f5 100%);" +
+                "-fx-background-insets: 0,1,2;" + " -fx-background-radius: 3,2,1;" + "-fx-padding: 3 30 3 30;" + "-fx-text-fill: black;" +  "-fx-font-size: 14px;";
+        homeStartBtn.setStyle(css);
         StackPane homeMain = new StackPane();
         homeMain.setStyle("-fx-background-color: azure");
         BorderPane homeBP = new BorderPane();
@@ -84,6 +87,9 @@ public class MainPage extends Application {
         tempBP.setPadding(new Insets(20, 20, 20, 20));
         Scene tempScene = new Scene(tempBP, 1200, 800);
 
+        // setButton Style
+        gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn);
+
         //Home Screen event mapping
         homeStartBtn.setOnAction(e -> primaryStage.setScene(selectScene));
 
@@ -98,6 +104,18 @@ public class MainPage extends Application {
 
         //Show primary stage
         primaryStage.show();
+    }
+    private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button tempBackBtn) {
+        String cssStyle = " -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 20;\n" +
+                "    -fx-background-radius: 20;\n" +
+                "    -fx-padding: 5;";
+        selectReturn.setStyle((cssStyle));
+        selectBsInfo.setStyle((cssStyle));
+        selectBjInfo.setStyle((cssStyle));
+        selectClrInfo.setStyle((cssStyle));
+        tempBackBtn.setStyle((cssStyle));
     }
 
     private void formatSelectScene(StackPane main, BorderPane bp, Button retBtn, HBox hbox, ImageView bsIV, ImageView bjIV,
