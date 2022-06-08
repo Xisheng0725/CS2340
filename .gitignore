@@ -1,2 +1,4 @@
 /target
+/.idea/libraries/*mac*
+/.idea/libraries/*win*
 CS2340.iml
