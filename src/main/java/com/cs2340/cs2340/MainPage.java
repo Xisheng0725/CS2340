@@ -44,8 +44,8 @@ public class MainPage extends Application {
         StackPane homeMain = new StackPane();
         homeMain.setStyle("-fx-background-color: azure");
         BorderPane homeBP = new BorderPane();
-        ImageView homeTitle = getImageView("/royale2.PNG", 420, 700);
-        ImageView icons = getImageView("/icons.PNG", 300, 900);
+        ImageView homeTitle = getImageView("/royale2.PNG", 350, 700);
+        ImageView icons = getImageView("/icons.PNG", 400, 900);
 
 
         //Create and format homeScreen
@@ -256,7 +256,7 @@ public class MainPage extends Application {
      */
     private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons) {
         //Add elements to home screen scene
-        VBox vbox = new VBox(20);
+        VBox vbox = new VBox(15);
         vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
