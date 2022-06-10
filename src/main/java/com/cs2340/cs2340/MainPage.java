@@ -88,6 +88,16 @@ public class MainPage extends Application {
         tempBP.setPadding(new Insets(20, 20, 20, 20));
         Scene tempScene = new Scene(tempBP, 1200, 800);
 
+        //Create the color game instruction page
+        BorderPane colorBP = new BorderPane();
+        StackPane colorPane = new StackPane();
+        Scene colorScene = new Scene(colorPane, 1200, 800);;
+        ImageView colorTitle = getImageView("color.PNG", 800, 1200);
+        Button colorBackBtn = new Button("Return");
+        colorBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
+        formatColorScreen(colorScene, colorBackBtn, colorPane, colorBP, colorTitle);
+
+
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
 
@@ -174,7 +184,7 @@ public class MainPage extends Application {
         });
         selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
-        selectClrInfo.setOnAction(e -> primaryStage.setScene(ColorPage.getScene()));
+        selectClrInfo.setOnAction(e -> primaryStage.setScene(colorScene));
 
         //Show primary stage
         primaryStage.show();
@@ -267,6 +277,17 @@ public class MainPage extends Application {
         homeScreen.getChildren().addAll(homeBP);
     }
 
+    private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle) {
+        setButton(colorBackReturn);
+        colorBackReturn.setTranslateX(30);
+        colorBackReturn.setTranslateY(-30);
+
+        colorBP.setBottom(colorBackReturn);
+
+        colorPane.setAlignment(colorBP, Pos.CENTER);
+        colorPane.getChildren().addAll(colorTitle, colorBP);
+    }
+
     /**
      *
      * @param fileName name of image file to be loaded
@@ -282,11 +303,15 @@ public class MainPage extends Application {
         return imageView;
     }
 
-    public static Scene getSelectScene() {
-        return selectScene;
+    private static void setButton(Button bt) {
+        String cssStyle = " -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 20;\n" +
+                "    -fx-background-radius: 20;\n" +
+                "    -fx-padding: 5;";
+        bt.setStyle(cssStyle);
     }
 
-    public static Button getReturnButton() {
-        return tempBackBtn;
-    }
+
+
 }
