@@ -25,6 +25,9 @@ import javafx.util.Duration;
  *@version 1.0.
  */
 public class MainPage extends Application {
+
+    private static Scene selectScene;
+    private static Button tempBackBtn;
     /**
      * Create the main method.
      * Please add commons or JavaDocs description when you add something
@@ -73,11 +76,11 @@ public class MainPage extends Application {
 
         //create and format selection scene
         formatSelectScene(selectMain, selectBP, selectReturn, hbox, selectBsImageView, selectBjImageView, selectClrImageView, selectBsInfo, selectBjInfo, selectClrInfo, selectionTitle);
-        Scene selectScene = new Scene(selectMain, 1200, 800);
+        selectScene = new Scene(selectMain, 1200, 800);
 
         //Create temporary construction scene
         Text tempTxt = new Text("This page is under construction...");
-        Button tempBackBtn = new Button("Return");
+        tempBackBtn = new Button("Return");
         BorderPane tempBP = new BorderPane();
         tempBP.setCenter(tempTxt);
         tempBP.setBottom(tempBackBtn);
@@ -166,12 +169,12 @@ public class MainPage extends Application {
                         fadeClr.stop();
                         primaryStage.setScene(tempScene);
                     }
-                }) ;
+                });
             }
         });
         selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
-        selectClrInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectClrInfo.setOnAction(e -> primaryStage.setScene(ColorPage.getScene()));
 
         //Show primary stage
         primaryStage.show();
@@ -277,5 +280,13 @@ public class MainPage extends Application {
         imageView.setFitHeight(height);
         imageView.setFitWidth(width);
         return imageView;
+    }
+
+    public static Scene getSelectScene() {
+        return selectScene;
+    }
+
+    public static Button getReturnButton() {
+        return tempBackBtn;
     }
 }
