@@ -284,6 +284,18 @@ public class MainPage extends Application {
 
         colorBP.setBottom(colorBackReturn);
 
+        Text instruction1 = new Text("1. Players should try to correctly guess the color and its corresponding position in the blind box in 8 rounds of guessing.");
+        Text instruction2 = new Text("2. At the end of a round of guessing, the result will be displayed.");
+        Text instruction3 = new Text("3. Green means the color and position are correct");
+        Text instruction4 = new Text("4. Red means the color is right but the position is wrong.");
+        Text instruction5 = new Text("5. No color means the color is not in the blind box");
+        VBox vText = new VBox(5);
+        vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5);
+        vText.setTranslateX(200);
+        vText.setTranslateY(300);
+        colorBP.setCenter(vText);
+
+
         colorPane.setAlignment(colorBP, Pos.CENTER);
         colorPane.getChildren().addAll(colorTitle, colorBP);
     }
