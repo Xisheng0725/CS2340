@@ -318,13 +318,35 @@ public class MainPage extends Application {
         setText(instruction4);
         Text instruction5 = new Text("5. No color means the color is not in the blind box");
         setText(instruction5);
-        VBox vText = new VBox(20);
-        vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5);
+        Text instruction6 = new Text("Examples are shown below.");
+        setText(instruction6);
+        VBox vText = new VBox(17);
+        vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5, instruction6);
         vText.setTranslateX(180);
         vText.setTranslateY(200);
         colorBP.setCenter(vText);
 
-        colorPane.getChildren().addAll(colorTitle, colorBP);
+        VBox example1 = new VBox(1);
+        ImageView instructionImage1 = getImageView("2half2not.png", 135, 135);
+        Text explain1 = new Text("Red: correct color but wrong position. \n" + "White: wrong color and wrong position.");
+        setText(explain1);
+        explain1.setStyle("-fx-font-size: 15px");
+        example1.getChildren().addAll(explain1, instructionImage1);
+        VBox example2 = new VBox(1);
+        ImageView instructionImage2 = getImageView("2full2not.png", 135, 135);
+        Text explain2 = new Text("Green: correct color and correct position. \n" + "White: wrong color and wrong position.");
+        setText(explain2);
+        explain2.setStyle("-fx-font-size: 15px");
+        example2.getChildren().addAll(explain2, instructionImage2);
+        HBox instruction = new HBox(21);
+        instruction.getChildren().addAll(example1, example2);
+        instruction.setTranslateX(150);
+        instruction.setTranslateY(563);
+
+
+        colorPane.getChildren().addAll(colorTitle, colorBP, instruction);
+
+
     }
 
     /**
