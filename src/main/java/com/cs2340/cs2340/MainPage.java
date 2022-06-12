@@ -11,10 +11,8 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -292,8 +290,24 @@ public class MainPage extends Application {
         colorBackBtn.setTranslateX(30);
         colorBackBtn.setTranslateY(-30);
         colorGame.setBottom(colorBackBtn);
+        ImageView gamePosition = getImageView("gp.png", 785, 1300);
+        GridPane eachRound = new GridPane();
+        eachRound.setMinSize(700, 500);
+        eachRound.setHgap(30);
+        eachRound.setVgap(20);
+        Circle[][] pins = new Circle[4][8];
+        int rows = 4;
+        int columns = 8;
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                Circle circle = new Circle();
+                pins[i][j] = circle;
+                circle.setFill(Color.GREY);
+                eachRound.add(pins[i][j], i, j);
+            }
+        }
 
-        colorGamePane.getChildren().addAll(colorGameTitle, colorGame);
+        colorGamePane.getChildren().addAll(colorGameTitle, colorGame, gamePosition, eachRound);
     }
 
     private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
@@ -323,7 +337,7 @@ public class MainPage extends Application {
         VBox vText = new VBox(17);
         vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5, instruction6);
         vText.setTranslateX(180);
-        vText.setTranslateY(200);
+        vText.setTranslateY(178);
         colorBP.setCenter(vText);
 
         VBox example1 = new VBox(1);
