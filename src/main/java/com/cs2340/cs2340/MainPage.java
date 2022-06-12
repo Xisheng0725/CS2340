@@ -18,6 +18,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.scene.paint.Color;
 
 /**
  *Represents MainPage named MainPage.
@@ -88,15 +89,27 @@ public class MainPage extends Application {
         tempBP.setPadding(new Insets(20, 20, 20, 20));
         Scene tempScene = new Scene(tempBP, 1200, 800);
 
+
+        // Create the Color Game game Page
+        BorderPane colorGame = new BorderPane();
+        StackPane colorGamePane = new StackPane();
+        Scene colorGameScene = new Scene(colorGamePane, 1200, 800);
+        Button gameReturnButton = new Button("Return");
+        gameReturnButton.setOnAction(e -> primaryStage.setScene(selectScene));
+        ImageView colorGameTitle = getImageView("colorBack.PNG", 800, 1200);
+        formatGameScreen(colorGameScene, gameReturnButton, colorGamePane, colorGame, colorGameTitle);
+
         //Create the color game instruction page
         BorderPane colorBP = new BorderPane();
         StackPane colorPane = new StackPane();
-        Scene colorScene = new Scene(colorPane, 1200, 800);;
+        Scene colorScene = new Scene(colorPane, 1200, 800);
         ImageView colorTitle = getImageView("color.PNG", 800, 1200);
         Button colorBackBtn = new Button("Return");
         colorBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
-        formatColorScreen(colorScene, colorBackBtn, colorPane, colorBP, colorTitle);
 
+        Button enterGame = new Button("Start Game");
+        enterGame.setOnAction(e -> primaryStage.setScene(colorGameScene));
+        formatColorScreen(colorScene, colorBackBtn, colorPane, colorBP, colorTitle, enterGame);
 
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
@@ -177,7 +190,7 @@ public class MainPage extends Application {
                     public void handle(ActionEvent e) {
                         fadeBj.stop();
                         fadeClr.stop();
-                        primaryStage.setScene(tempScene);
+                        primaryStage.setScene(colorGameScene);
                     }
                 });
             }
@@ -248,7 +261,6 @@ public class MainPage extends Application {
         hbox.getChildren().addAll(bsVBox, bjVBox, clrVBox);
         hbox.setAlignment(Pos.CENTER);
 
-
         bp.setCenter(hbox);
         bp.setTop(selectionTitle);
         bp.setBottom(retBtn);
@@ -257,7 +269,6 @@ public class MainPage extends Application {
         hbox.setTranslateY(-90);
         retBtn.setTranslateX(30);
         retBtn.setTranslateY(-30);
-        main.setAlignment(bp, Pos.CENTER);
         main.getChildren().addAll(bp);
     }
 
@@ -273,30 +284,46 @@ public class MainPage extends Application {
         vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
-        homeScreen.setAlignment(homeBP, Pos.CENTER);
         homeScreen.getChildren().addAll(homeBP);
     }
 
-    private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle) {
+    private void formatGameScreen(Scene colorGameScene, Button colorBackBtn, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle) {
+        setButton(colorBackBtn);
+        colorBackBtn.setTranslateX(30);
+        colorBackBtn.setTranslateY(-30);
+        colorGame.setBottom(colorBackBtn);
+
+        colorGamePane.getChildren().addAll(colorGameTitle, colorGame);
+    }
+
+    private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
         setButton(colorBackReturn);
-        colorBackReturn.setTranslateX(30);
-        colorBackReturn.setTranslateY(-30);
 
-        colorBP.setBottom(colorBackReturn);
+        setButton(enterGame);
 
-        Text instruction1 = new Text("1. Players should try to correctly guess the color and its corresponding position in the blind box in 8 rounds of guessing.");
+        HBox buttonHbox = new HBox(1030);
+        buttonHbox.getChildren().addAll(colorBackReturn, enterGame);
+        buttonHbox.setTranslateX(30);
+        buttonHbox.setTranslateY(-30);
+        colorBP.setBottom(buttonHbox);
+
+        Text instruction1 = new Text("1. Players should try to correctly guess the color and its corresponding position\n " +
+                "   in the blind box in 8 rounds of guessing.");
+        setText(instruction1);
         Text instruction2 = new Text("2. At the end of a round of guessing, the result will be displayed.");
+        setText(instruction2);
         Text instruction3 = new Text("3. Green means the color and position are correct");
+        setText(instruction3);
         Text instruction4 = new Text("4. Red means the color is right but the position is wrong.");
+        setText(instruction4);
         Text instruction5 = new Text("5. No color means the color is not in the blind box");
-        VBox vText = new VBox(5);
+        setText(instruction5);
+        VBox vText = new VBox(20);
         vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5);
-        vText.setTranslateX(200);
-        vText.setTranslateY(300);
+        vText.setTranslateX(180);
+        vText.setTranslateY(200);
         colorBP.setCenter(vText);
 
-
-        colorPane.setAlignment(colorBP, Pos.CENTER);
         colorPane.getChildren().addAll(colorTitle, colorBP);
     }
 
@@ -322,6 +349,14 @@ public class MainPage extends Application {
                 "    -fx-background-radius: 20;\n" +
                 "    -fx-padding: 5;";
         bt.setStyle(cssStyle);
+    }
+    private static void setText(Text tx) {
+        String cssStyle = " -fx-text-fill: #006464;\n" +
+                "        -fx-font-family: Comic Sans MS;\n" +
+                "        -fx-font-size: 25px;";
+        tx.setStyle(cssStyle);
+        Color c = Color.web("#006464");
+        tx.setFill(c);
     }
 
 
