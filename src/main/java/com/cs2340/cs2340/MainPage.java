@@ -299,6 +299,15 @@ public class MainPage extends Application {
         imageCheckHead.setTranslateX(850);
         imageCheckHead.setTranslateY(530);
 
+        VBox grey = new VBox(25);
+        ImageView grey1 = getImageView("gray.png", 50, 50);
+        ImageView grey2 = getImageView("gray.png", 50, 50);
+        ImageView grey3 = getImageView("gray.png", 50, 50);
+        ImageView grey4 = getImageView("gray.png", 50, 50);
+        grey.getChildren().addAll(grey1, grey2, grey3, grey4);
+        grey.setTranslateX(850);
+        grey.setTranslateY(180);
+
 
         HBox allColors = new HBox(40);
         ImageView red = getImageView("red.png", 50, 50);
@@ -378,7 +387,9 @@ public class MainPage extends Application {
                 enterPin(purpleImage, pins);
             }
         });
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, colorGame, allColors);
+
+
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, colorGame, grey, allColors);
     }
     private void enterPin(Image tempImage, Circle[][] pins) {
         boolean check = false;
