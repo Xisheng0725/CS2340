@@ -96,7 +96,7 @@ public class MainPage extends Application {
         Button gameReturnButton = new Button("Return");
         gameReturnButton.setOnAction(e -> primaryStage.setScene(selectScene));
         ImageView colorGameTitle = getImageView("colorBack.PNG", 800, 1200);
-        formatGameScreen(colorGameScene, gameReturnButton, colorGamePane, colorGame, colorGameTitle);
+        formatGameScreen(colorGameScene, colorGamePane, colorGame, colorGameTitle, primaryStage);
 
         //Create the color game instruction page
         BorderPane colorBP = new BorderPane();
@@ -108,7 +108,7 @@ public class MainPage extends Application {
 
         Button enterGame = new Button("Start Game");
         enterGame.setOnAction(e -> primaryStage.setScene(colorGameScene));
-        formatColorScreen(colorScene, colorBackBtn, colorPane, colorBP, colorTitle, enterGame);
+        formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame);
 
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
@@ -286,7 +286,8 @@ public class MainPage extends Application {
         homeScreen.getChildren().addAll(homeBP);
     }
 
-    private void formatGameScreen(Scene colorGameScene, Button colorBackBtn, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle) {
+    private void formatGameScreen(Scene colorGameScene, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle, Stage primaryStage) {
+        Button colorBackBtn = new Button("Return");
         setButton(colorBackBtn);
         colorBackBtn.setTranslateX(30);
         colorBackBtn.setTranslateY(-30);
@@ -299,14 +300,14 @@ public class MainPage extends Application {
         imageCheckHead.setTranslateX(850);
         imageCheckHead.setTranslateY(530);
 
-        VBox grey = new VBox(25);
+        VBox grey = new VBox(15);
         ImageView grey1 = getImageView("gray.png", 50, 50);
         ImageView grey2 = getImageView("gray.png", 50, 50);
         ImageView grey3 = getImageView("gray.png", 50, 50);
         ImageView grey4 = getImageView("gray.png", 50, 50);
         grey.getChildren().addAll(grey1, grey2, grey3, grey4);
-        grey.setTranslateX(850);
-        grey.setTranslateY(180);
+        grey.setTranslateX(950);
+        grey.setTranslateY(175);
 
 
         HBox allColors = new HBox(40);
@@ -338,6 +339,12 @@ public class MainPage extends Application {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 Circle circle = new Circle(20);
+                circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        circle.setFill(Color.GREY);
+                    }
+                });
                 pins[i][j] = circle;
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
@@ -387,9 +394,23 @@ public class MainPage extends Application {
                 enterPin(purpleImage, pins);
             }
         });
-
-
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, colorGame, grey, allColors);
+        colorBackBtn.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                clearPin(pins);
+                primaryStage.setScene(selectScene);
+            }
+        });
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, colorGame, eachRound, grey, allColors);
+    }
+    private void clearPin(Circle[][] pins) {
+        for (int i = 0; i < pins.length; i++) {
+            for (int j = 0; j < pins[i].length; j++) {
+                if (pins[i][j].getFill() != Color.GREY) {
+                    pins[i][j].setFill(Color.GREY);
+                }
+            }
+        }
     }
     private void enterPin(Image tempImage, Circle[][] pins) {
         boolean check = false;
@@ -458,7 +479,6 @@ public class MainPage extends Application {
 
 
         colorPane.getChildren().addAll(colorTitle, instruction, vText, colorBP);
-
 
     }
 
