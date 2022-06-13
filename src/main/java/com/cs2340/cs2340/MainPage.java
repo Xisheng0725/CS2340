@@ -291,23 +291,45 @@ public class MainPage extends Application {
         colorBackBtn.setTranslateY(-30);
         colorGame.setBottom(colorBackBtn);
         ImageView gamePosition = getImageView("gp.png", 785, 1300);
+
+        VBox imageCheckHead = new VBox();
+        ImageView checkHead = getImageView("begin.png", 200, 200);
+        imageCheckHead.getChildren().addAll(checkHead);
+        imageCheckHead.setTranslateX(850);
+        imageCheckHead.setTranslateY(530);
+
+
+        HBox allColors = new HBox(40);
+        ImageView red = getImageView("red.png", 50, 50);
+        ImageView orange = getImageView("orange.png", 50, 50);
+        ImageView yellow = getImageView("yellow.png", 50, 50);
+        ImageView green = getImageView("green.png", 50, 50);
+        ImageView blue = getImageView("blue.png", 50, 50);
+        ImageView purple = getImageView("purple.png", 50, 50);
+        allColors.getChildren().addAll(red, orange, yellow, green, blue, purple);
+        allColors.setTranslateX(140);
+        allColors.setTranslateY(620);
+
+
         GridPane eachRound = new GridPane();
         eachRound.setMinSize(700, 500);
-        eachRound.setHgap(30);
-        eachRound.setVgap(20);
-        Circle[][] pins = new Circle[4][8];
-        int rows = 4;
-        int columns = 8;
+        eachRound.setHgap(60);
+        eachRound.setVgap(25);
+        Circle[][] pins = new Circle[8][4];
+        int rows = 8;
+        int columns = 4;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
-                Circle circle = new Circle();
+                Circle circle = new Circle(20);
                 pins[i][j] = circle;
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
             }
         }
+        eachRound.setTranslateX(150);
+        eachRound.setTranslateY(180);
 
-        colorGamePane.getChildren().addAll(colorGameTitle, colorGame, gamePosition, eachRound);
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, allColors, colorGame);
     }
 
     private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
@@ -338,7 +360,7 @@ public class MainPage extends Application {
         vText.getChildren().addAll(instruction1, instruction2, instruction3, instruction4, instruction5, instruction6);
         vText.setTranslateX(180);
         vText.setTranslateY(178);
-        colorBP.setCenter(vText);
+
 
         VBox example1 = new VBox(1);
         ImageView instructionImage1 = getImageView("2half2not.png", 135, 135);
@@ -358,7 +380,7 @@ public class MainPage extends Application {
         instruction.setTranslateY(563);
 
 
-        colorPane.getChildren().addAll(colorTitle, colorBP, instruction);
+        colorPane.getChildren().addAll(colorTitle, instruction, vText, colorBP);
 
 
     }
@@ -394,7 +416,4 @@ public class MainPage extends Application {
         Color c = Color.web("#006464");
         tx.setFill(c);
     }
-
-
-
 }
