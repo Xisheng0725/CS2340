@@ -12,6 +12,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -301,14 +302,21 @@ public class MainPage extends Application {
 
         HBox allColors = new HBox(40);
         ImageView red = getImageView("red.png", 50, 50);
+        Image redImage = new Image("red.png");
         ImageView orange = getImageView("orange.png", 50, 50);
+        Image orangeImage = new Image("orange.png");
         ImageView yellow = getImageView("yellow.png", 50, 50);
+        Image yellowImage = new Image("yellow.png");
         ImageView green = getImageView("green.png", 50, 50);
+        Image greenImage = new Image("green.png");
         ImageView blue = getImageView("blue.png", 50, 50);
+        Image blueImage = new Image("blue.png");
         ImageView purple = getImageView("purple.png", 50, 50);
+        Image purpleImage = new Image("purple.png");
         allColors.getChildren().addAll(red, orange, yellow, green, blue, purple);
         allColors.setTranslateX(140);
-        allColors.setTranslateY(620);
+        allColors.setTranslateY(610);
+
 
 
         GridPane eachRound = new GridPane();
@@ -328,9 +336,67 @@ public class MainPage extends Application {
         }
         eachRound.setTranslateX(150);
         eachRound.setTranslateY(180);
-
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, allColors, colorGame);
+        red.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image redImage = new Image("red.png");
+                enterPin(redImage, pins);
+            }
+        });
+        orange.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image orangeImage = new Image("orange.png");
+                enterPin(orangeImage, pins);
+            }
+        });
+        yellow.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image yellowImage = new Image("yellow.png");
+                enterPin(yellowImage, pins);
+            }
+        });
+        green.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image greenImage = new Image("green.png");
+                enterPin(greenImage, pins);
+            }
+        });
+        blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image blueImage = new Image("blue.png");
+                enterPin(blueImage, pins);
+            }
+        });
+        purple.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                Image purpleImage = new Image("purple.png");
+                enterPin(purpleImage, pins);
+            }
+        });
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, eachRound, colorGame, allColors);
     }
+    private void enterPin(Image tempImage, Circle[][] pins) {
+        boolean check = false;
+        for (int i = 0; i < pins.length; i++) {
+            if (!check) {
+                for (int j = 0; j < pins[i].length; j++) {
+                    if (pins[i][j].getFill() == Color.GREY) {
+                        pins[i][j].setFill(new ImagePattern(tempImage));
+                        check = true;
+                        break;
+                    }
+                }
+            } else {
+                break;
+            }
+        }
+    }
+
 
     private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
         setButton(colorBackReturn);
