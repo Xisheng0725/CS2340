@@ -300,6 +300,12 @@ public class MainPage extends Application {
         imageCheckHead.setTranslateX(850);
         imageCheckHead.setTranslateY(530);
 
+        HBox title = new HBox();
+        ImageView title1 = getImageView("GTC Title.png", 100, 500);
+        title.getChildren().addAll(title1);
+        title.setTranslateX(350);
+        title.setTranslateY(20);
+
         VBox grey = new VBox(15);
         ImageView grey1 = getImageView("gray.png", 50, 50);
         ImageView grey2 = getImageView("gray.png", 50, 50);
@@ -401,7 +407,7 @@ public class MainPage extends Application {
                 primaryStage.setScene(selectScene);
             }
         });
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, colorGame, eachRound, grey, allColors);
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, title, colorGame, eachRound, grey, allColors);
     }
     private void clearPin(Circle[][] pins) {
         for (int i = 0; i < pins.length; i++) {
