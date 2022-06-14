@@ -286,6 +286,8 @@ public class MainPage extends Application {
         homeScreen.getChildren().addAll(homeBP);
     }
 
+    //format of color game page itself
+
     private void formatGameScreen(Scene colorGameScene, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle, Stage primaryStage) {
         Button colorBackBtn = new Button("Return");
         setButton(colorBackBtn);
@@ -403,6 +405,9 @@ public class MainPage extends Application {
         });
         colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, colorGame, eachRound, grey, allColors);
     }
+
+
+    // helper for when user click return button, all the pin are clear
     private void clearPin(Circle[][] pins) {
         for (int i = 0; i < pins.length; i++) {
             for (int j = 0; j < pins[i].length; j++) {
@@ -412,6 +417,8 @@ public class MainPage extends Application {
             }
         }
     }
+
+    // enter pin loop
     private void enterPin(Image tempImage, Circle[][] pins) {
         boolean check = false;
         for (int i = 0; i < pins.length; i++) {
@@ -429,7 +436,7 @@ public class MainPage extends Application {
         }
     }
 
-
+    // format of instruction page
     private void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
         setButton(colorBackReturn);
 
@@ -497,6 +504,7 @@ public class MainPage extends Application {
         return imageView;
     }
 
+    // set button helper
     private static void setButton(Button bt) {
         String cssStyle = " -fx-text-fill: #006464;\n" +
                 "    -fx-background-color: #DFB951;\n" +
