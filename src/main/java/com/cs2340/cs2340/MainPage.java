@@ -456,6 +456,9 @@ public class MainPage extends Application {
                 }
                 gtcCounter = 0;
                 GTCColor[] guess = getGuess(pins, pinColors);
+                GTCColor[] testClrs = {GTCColor.Green, GTCColor.Green, GTCColor.Blue, GTCColor.Orange};
+                colorGameLogic.setBlind(testClrs);
+                System.out.println(colorGameLogic.getBlind());
                 colorGameLogic.guess(guess);
                 if(colorGameLogic.hasLost()){
                     System.out.println("You lost");
