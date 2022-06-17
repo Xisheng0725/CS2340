@@ -25,124 +25,124 @@ public class GuessTheColorGameTest {
     @Test(timeout = TIMEOUT)
     public void testGuess() {
         // ensures that the game can guess without error
-        Color[] guess = new Color[] { Color.Pink, Color.Red, Color.Blue, Color.Green };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Purple, GTCColor.Red, GTCColor.Blue, GTCColor.Green };
         game.guess(guess);
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_allWrong() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Pink, Color.Pink, Color.Yellow, Color.Yellow };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Purple, GTCColor.Purple, GTCColor.Yellow, GTCColor.Yellow };
         game.guess(guess);
 
-        Color[] allWrong = new Color[] { Color.Hint_Wrong, Color.Hint_Wrong, Color.Hint_Wrong, Color.Hint_Wrong };
+        GTCColor[] allWrong = new GTCColor[] { GTCColor.Hint_Wrong, GTCColor.Hint_Wrong, GTCColor.Hint_Wrong, GTCColor.Hint_Wrong };
         assertArrayEquals(allWrong, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_1() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Blue, Color.Red, Color.Yellow, Color.Yellow };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Blue, GTCColor.Red, GTCColor.Yellow, GTCColor.Yellow };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_White, Color.Hint_Wrong, Color.Hint_Wrong };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot, GTCColor.Hint_Wrong, GTCColor.Hint_Wrong };
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_2() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Yellow, Color.Green, Color.Orange, Color.Pink };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Yellow, GTCColor.Green, GTCColor.Orange, GTCColor.Purple };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_White, Color.Hint_Wrong, Color.Hint_Wrong };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot, GTCColor.Hint_Wrong, GTCColor.Hint_Wrong };
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_3() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Green, Color.Green, Color.Orange, Color.Pink };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Green, GTCColor.Green, GTCColor.Orange, GTCColor.Purple };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_White, Color.Hint_White, Color.Hint_Wrong };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot, GTCColor.Hint_WrongSpot, GTCColor.Hint_Wrong };
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_4() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Orange, Color.Green, Color.Orange, Color.Red };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Orange, GTCColor.Green, GTCColor.Orange, GTCColor.Red };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_White, Color.Hint_White, Color.Hint_White };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot, GTCColor.Hint_WrongSpot, GTCColor.Hint_WrongSpot};
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_5() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Pink, Color.Green, Color.Yellow, Color.Orange };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Purple, GTCColor.Green, GTCColor.Yellow, GTCColor.Orange };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_White, Color.Hint_Wrong, Color.Hint_Wrong };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_Wrong, GTCColor.Hint_Wrong };
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_6() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Blue, Color.Green, Color.Orange, Color.Red };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Orange, GTCColor.Red };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_Black, Color.Hint_White, Color.Hint_White };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot, GTCColor.Hint_WrongSpot};
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_partlyCorrect_8() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Green };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Green };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_Black, Color.Hint_Black, Color.Hint_White };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_WrongSpot};
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testGiveHint_allRight() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.guess(guess);
 
-        Color[] hint = new Color[] { Color.Hint_Black, Color.Hint_Black, Color.Hint_Black, Color.Hint_Black };
+        GTCColor[] hint = new GTCColor[] { GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_Correct, GTCColor.Hint_Correct};
         assertArrayEquals(hint, game.getHint());
     }
 
     @Test(timeout = TIMEOUT)
     public void testLose() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] wrongGuess = new Color[] { Color.Blue, Color.Blue, Color.Blue, Color.Blue };
+        GTCColor[] wrongGuess = new GTCColor[] { GTCColor.Blue, GTCColor.Blue, GTCColor.Blue, GTCColor.Blue };
 
         for (int i = 0; i < ColorGame.MAX_GUESSES; i++) {
             game.guess(wrongGuess);
@@ -152,10 +152,10 @@ public class GuessTheColorGameTest {
 
     @Test(timeout = TIMEOUT)
     public void testWin() {
-        Color[] blind = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] blind = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.setBlind(blind);
 
-        Color[] guess = new Color[] { Color.Blue, Color.Green, Color.Red, Color.Orange };
+        GTCColor[] guess = new GTCColor[] { GTCColor.Blue, GTCColor.Green, GTCColor.Red, GTCColor.Orange };
         game.guess(guess);
 
         assertTrue(game.hasWon());
