@@ -28,6 +28,8 @@ public class MainPage extends Application {
 
     private static Scene selectScene;
     private static Button tempBackBtn;
+    private static int gtcCounter;
+    private static ColorGame colorGameLogic;
     /**
      * Create the main method.
      * Please add commons or JavaDocs description when you add something
@@ -90,6 +92,7 @@ public class MainPage extends Application {
 
 
         // Create the Color Game game Page
+        colorGameLogic = new ColorGame();
         BorderPane colorGame = new BorderPane();
         StackPane colorGamePane = new StackPane();
         Scene colorGameScene = new Scene(colorGamePane, 1200, 800);
@@ -289,6 +292,7 @@ public class MainPage extends Application {
     //format of color game page itself
 
     private void formatGameScreen(Scene colorGameScene, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle, Stage primaryStage) {
+        gtcCounter = 0;
         Button colorBackBtn = new Button("Return");
         setButton(colorBackBtn);
         colorBackBtn.setTranslateX(30);
@@ -314,7 +318,7 @@ public class MainPage extends Application {
         ImageView grey3 = getImageView("gray.png", 50, 50);
         ImageView grey4 = getImageView("gray.png", 50, 50);
         grey.getChildren().addAll(grey1, grey2, grey3, grey4);
-        grey.setTranslateX(950);
+        grey.setTranslateX(1025);
         grey.setTranslateY(175);
 
 
@@ -342,14 +346,19 @@ public class MainPage extends Application {
         eachRound.setHgap(60);
         eachRound.setVgap(25);
         Circle[][] pins = new Circle[8][4];
+        GTCColor[][] pinColors = new GTCColor[8][4];
         int rows = 8;
         int columns = 4;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
+                pinColors[i][j] = GTCColor.Empty;
                 Circle circle = new Circle(20);
                 circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
+                        if(circle.getFill() != Color.GREY) {
+                            gtcCounter--;
+                        }
                         circle.setFill(Color.GREY);
                     }
                 });
@@ -357,49 +366,77 @@ public class MainPage extends Application {
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
             }
+            ImageView fourNotIV = getImageView("4not.png", 50 ,50);
+            fourNotIV.setTranslateX(-5);
+            eachRound.add(fourNotIV, i, 4);
         }
+
         eachRound.setTranslateX(150);
         eachRound.setTranslateY(180);
         red.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image redImage = new Image("red.png");
-                enterPin(redImage, pins);
+                enterPin(redImage, pins, pinColors, GTCColor.Red);
             }
         });
         orange.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image orangeImage = new Image("orange.png");
-                enterPin(orangeImage, pins);
+                enterPin(orangeImage, pins, pinColors, GTCColor.Orange);
             }
         });
         yellow.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image yellowImage = new Image("yellow.png");
-                enterPin(yellowImage, pins);
+                enterPin(yellowImage, pins, pinColors, GTCColor.Yellow);
             }
         });
         green.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image greenImage = new Image("green.png");
-                enterPin(greenImage, pins);
+                enterPin(greenImage, pins, pinColors, GTCColor.Green);
             }
         });
         blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image blueImage = new Image("blue.png");
-                enterPin(blueImage, pins);
+                enterPin(blueImage, pins, pinColors, GTCColor.Blue);
             }
         });
         purple.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter == 4) {
+                    return;
+                }
+                gtcCounter++;
                 Image purpleImage = new Image("purple.png");
-                enterPin(purpleImage, pins);
+                enterPin(purpleImage, pins, pinColors, GTCColor.Purple);
             }
         });
         colorBackBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -409,7 +446,79 @@ public class MainPage extends Application {
                 primaryStage.setScene(selectScene);
             }
         });
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, imageCheckHead, title, colorGame, eachRound, grey, allColors);
+
+        //Submit button logic
+        imageCheckHead.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(gtcCounter != 4) {
+                    return;
+                }
+                gtcCounter = 0;
+                GTCColor[] guess = getGuess(pins, pinColors);
+                colorGameLogic.guess(guess);
+                if(colorGameLogic.hasLost()){
+                    System.out.println("You lost");
+                    return;
+                } else if(colorGameLogic.hasWon()) {
+                    System.out.println("You won");
+                    return;
+                }
+                ImageView hint = hintToIV(colorGameLogic.getHint());
+                hint.setTranslateX(-5);
+                eachRound.add(hint, colorGameLogic.getNumGuesses() - 1, 4);
+            }
+        });
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound, grey, allColors, imageCheckHead);
+    }
+
+    /**
+     * Gets the corresponding image for a hint and returns the associated ImageView
+     * @param hint latest hint
+     * @return IV of hint
+     */
+    private ImageView hintToIV(GTCColor[] hint) {
+        int full = 0;
+        int half = 0;
+        int not = 0;
+        for(int i = 0; i < hint.length; i++) {
+            if(hint[i].toString().equals(GTCColor.Hint_Correct.toString())) {
+                full++;
+            } else if(hint[i].toString().equals(GTCColor.Hint_WrongSpot.toString())) {
+                half++;
+            } else if(hint[i].toString().equals(GTCColor.Hint_Wrong.toString())) {
+                not++;
+            }
+        }
+        String imageName = "";
+        if(full != 0) {
+            imageName += String.valueOf(full) + "full";
+        }
+        if(half != 0) {
+            imageName += String.valueOf(half) + "half";
+        }
+        if(not != 0) {
+            imageName += String.valueOf(not) + "not";
+        }
+        imageName += ".png";
+        System.out.println(imageName + "-------------");
+        return getImageView(imageName, 50, 50);
+    }
+
+    //Gets users guess
+    private GTCColor[] getGuess(Circle[][] pins, GTCColor[][] pinColors) {
+        int col = 0;
+        for(int i = 0; i < 8; i++) {
+            if(pins[i][3].getFill() == Color.GREY) {
+                col = i - 1;
+                break;
+            }
+        }
+        GTCColor[] guess = new GTCColor[4];
+        for(int i = 0; i < 4; i++) {
+            guess[i] = pinColors[col][i];
+        }
+        return guess;
     }
 
 
@@ -425,13 +534,14 @@ public class MainPage extends Application {
     }
 
     // enter pin loop
-    private void enterPin(Image tempImage, Circle[][] pins) {
+    private void enterPin(Image tempImage, Circle[][] pins, GTCColor[][] pinColors, GTCColor tempColor) {
         boolean check = false;
         for (int i = 0; i < pins.length; i++) {
             if (!check) {
                 for (int j = 0; j < pins[i].length; j++) {
                     if (pins[i][j].getFill() == Color.GREY) {
                         pins[i][j].setFill(new ImagePattern(tempImage));
+                        pinColors[i][j] = tempColor;
                         check = true;
                         break;
                     }

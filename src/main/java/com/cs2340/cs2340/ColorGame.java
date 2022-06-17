@@ -6,7 +6,7 @@ import java.util.Random;
  * Contains the logic for controlling the GTC game.
  */
 public class ColorGame {
-    public static final int MAX_GUESSES = 9;
+    public static final int MAX_GUESSES = 8;
     public static final int GUESS_SIZE = 4;
 
     private static final GTCColor[] colorPossibilities = new GTCColor[] {
@@ -123,5 +123,13 @@ public class ColorGame {
      */
     protected void setBlind(GTCColor[] colors) {
         blind = colors;
+    }
+
+    /**
+     * Getter method for numGuesses
+     * @return number of guesses made so far
+     */
+    public int getNumGuesses() {
+       return this.numberGuesses;
     }
 }

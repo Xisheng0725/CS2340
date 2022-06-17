@@ -10,6 +10,7 @@ public class GTCColor {
     public static final GTCColor Green = new GTCColor('G');
     public static final GTCColor Blue = new GTCColor('B');
     public static final GTCColor Purple = new GTCColor('P');
+    public static final GTCColor Empty = new GTCColor('G');
 
     /**
      * A color in the guess was not anywhere in the blind box.
@@ -26,7 +27,11 @@ public class GTCColor {
 
     private char color;
 
-    private GTCColor(char color) {
+    GTCColor(char color) {
         this.color = color;
+    }
+
+    public String toString() {
+        return String.valueOf(color);
     }
 }
