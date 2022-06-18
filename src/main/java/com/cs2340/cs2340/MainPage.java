@@ -318,7 +318,7 @@ public class MainPage extends Application {
                 if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
                     return;
                 }
-                glow.setLevel(0.8);
+                glow.setLevel(0.5);
             }
         });
         imageCheckHead.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -385,6 +385,7 @@ public class MainPage extends Application {
                             gtcCounter--;
                         }
                         circle.setFill(Color.GREY);
+                        circle.setEffect(null);
                     }
                 });
                 pins[i][j] = circle;
@@ -464,6 +465,15 @@ public class MainPage extends Application {
                 enterPin(purpleImage, pins, pinColors, GTCColor.Purple);
             }
         });
+
+        //Adding glow to color selection
+        glow(red);
+        glow(blue);
+        glow(green);
+        glow(yellow);
+        glow(orange);
+        glow(purple);
+
         colorBackBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -497,6 +507,30 @@ public class MainPage extends Application {
         });
         colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound,
                 grey, allColors, imageCheckHead);
+    }
+
+    private void glow(Node color) {
+        Glow glow = new Glow();
+        color.setEffect(glow);
+        glow.setLevel(0);
+        color.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
+                    return;
+                }
+                glow.setLevel(0.5);
+            }
+        });
+        color.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
+                    return;
+                }
+                glow.setLevel(0);
+            }
+        });
     }
 
     /**
@@ -670,6 +704,7 @@ public class MainPage extends Application {
             if (!check) {
                 for (int j = 0; j < pins[i].length; j++) {
                     if (pins[i][j].getFill() == Color.GREY) {
+                        glow(pins[i][j]);
                         pins[i][j].setFill(new ImagePattern(tempImage));
                         pinColors[i][j] = tempColor;
                         check = true;
@@ -743,6 +778,7 @@ public class MainPage extends Application {
      * @return ImageView of image passed in with requested height and width
      */
     private ImageView getImageView(String fileName, int height, int width) {
+        System.out.println(fileName);
         Image image = new Image(fileName);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height);
