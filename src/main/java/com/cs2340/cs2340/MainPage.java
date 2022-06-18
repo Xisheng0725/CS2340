@@ -21,6 +21,8 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.scene.paint.Color;
 
+import static javafx.application.Platform.exit;
+
 /**
  *Represents MainPage named MainPage.
  *@author Xisheng Zhang, Qihui Wang, Porter Zach, Xueqing Li, and Shane Sinnerine.
@@ -53,10 +55,11 @@ public class MainPage extends Application {
         BorderPane homeBP = new BorderPane();
         ImageView homeTitle = getImageView("/royale2.PNG", 350, 700);
         ImageView icons = getImageView("/icons.PNG", 400, 900);
+        Button exitBtn = new Button("Exit");
 
 
         //Create and format homeScreen
-        formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitle, icons);
+        formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitle, icons, exitBtn);
         Scene homeScene = new Scene(homeMain, 1200, 800);
 
         
@@ -224,7 +227,8 @@ public class MainPage extends Application {
                 "    -fx-background-color: #DFB951;\n" +
                 "    -fx-border-radius: 30;\n" +
                 "    -fx-background-radius: 90;\n" +
-                "    -fx-padding: 20;";
+                "    -fx-padding: 20;\n" +
+                "    -fx-font-size: 20";
         homeStartBtn.setStyle(cssForHome);
         selectReturn.setStyle((cssStyle));
         selectBsInfo.setStyle((cssStyle));
@@ -282,13 +286,27 @@ public class MainPage extends Application {
      * @param homeScreen stackPane to create scene with
      * @param homeBP borderpane to create home scene with
      */
-    private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons) {
+    private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons, Button exitBtn) {
         //Add elements to home screen scene
         VBox vbox = new VBox(15);
         vbox.getChildren().addAll(homeTitle, btnStart, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
-        homeScreen.getChildren().addAll(homeBP);
+        exitBtn.setStyle(" -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 30;\n" +
+                "    -fx-background-radius: 30;\n" +
+                "    -fx-padding: 10;\n" +
+                "    -fx-font-size:20;");
+        exitBtn.setTranslateX(-520);
+        exitBtn.setTranslateY(-350);
+        exitBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                exit();
+            }
+        });
+        homeScreen.getChildren().addAll(homeBP, exitBtn);
     }
 
     //format of color game page itself
