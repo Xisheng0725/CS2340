@@ -6,8 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -192,7 +194,7 @@ public class MainPage extends Application {
                     public void handle(ActionEvent e) {
                         fadeBj.stop();
                         fadeClr.stop();
-                        primaryStage.setScene(colorGameScene);
+                        resetClrGame(colorGameScene, primaryStage);
                     }
                 });
             }
@@ -301,10 +303,33 @@ public class MainPage extends Application {
         ImageView gamePosition = getImageView("gp.png", 785, 1300);
 
         VBox imageCheckHead = new VBox();
-        ImageView checkHead = getImageView("begin.png", 200, 200);
+        ImageView checkHead = getImageView("submit1.png", 300, 300);
         imageCheckHead.getChildren().addAll(checkHead);
-        imageCheckHead.setTranslateX(850);
-        imageCheckHead.setTranslateY(530);
+        imageCheckHead.setTranslateX(770);
+        imageCheckHead.setTranslateY(500);
+
+        //Glow effect for image on mouse hover
+        Glow glow = new Glow();
+        glow.setLevel(0);
+        imageCheckHead.setEffect(glow);
+        imageCheckHead.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
+                    return;
+                }
+                glow.setLevel(0.8);
+            }
+        });
+        imageCheckHead.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
+                    return;
+                }
+                glow.setLevel(0);
+            }
+        });
 
         HBox title = new HBox();
         ImageView title1 = getImageView("GTC Title.png", 100, 500);
@@ -376,7 +401,7 @@ public class MainPage extends Application {
         red.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -387,7 +412,7 @@ public class MainPage extends Application {
         orange.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -398,7 +423,7 @@ public class MainPage extends Application {
         yellow.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -409,7 +434,7 @@ public class MainPage extends Application {
         green.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -420,7 +445,7 @@ public class MainPage extends Application {
         blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -431,7 +456,7 @@ public class MainPage extends Application {
         purple.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(gtcCounter == 4) {
+                if(gtcCounter == 4 || colorGameLogic.hasWon()) {
                     return;
                 }
                 gtcCounter++;
@@ -454,26 +479,124 @@ public class MainPage extends Application {
                 if(gtcCounter != 4) {
                     return;
                 }
-                gtcCounter = 0;
-                GTCColor[] guess = getGuess(pins, pinColors);
-                GTCColor[] testClrs = {GTCColor.Green, GTCColor.Green, GTCColor.Blue, GTCColor.Orange};
-                colorGameLogic.setBlind(testClrs);
-                System.out.println(colorGameLogic.getBlind());
-                colorGameLogic.guess(guess);
-                if(colorGameLogic.hasLost()){
-                    System.out.println("You lost");
-                    return;
-                } else if(colorGameLogic.hasWon()) {
-                    System.out.println("You won");
+                if(colorGameLogic.getNumGuesses() >= 8 || colorGameLogic.hasWon()) {
                     return;
                 }
+                gtcCounter = 0;
+                GTCColor[] guess = getGuess(pins, pinColors);
+                colorGameLogic.guess(guess);
                 ImageView hint = hintToIV(colorGameLogic.getHint());
                 hint.setTranslateX(-5);
                 eachRound.add(hint, colorGameLogic.getNumGuesses() - 1, 4);
+                if(colorGameLogic.hasLost() || colorGameLogic.hasWon()){
+                    colorGameEnd(colorGameLogic, checkHead, colorGamePane, primaryStage, pins,
+                            pinColors, colorGameScene, grey);
+                    return;
+                }
             }
         });
-        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound, grey, allColors, imageCheckHead);
+        colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound,
+                grey, allColors, imageCheckHead);
     }
+
+    /**
+     * Logic for when game ends
+     * @param colorGameLogic statistics of game
+     */
+    private void colorGameEnd(ColorGame colorGameLogic, ImageView checkHead, StackPane colorGamePane, Stage primaryStage,
+                              Circle[][] pins, GTCColor[][] pinColors, Scene colorGameScene, VBox grey) {
+
+        //Styling for buttons
+        String cssStyle = " -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 30;\n" +
+                "    -fx-background-radius: 30;\n" +
+                "    -fx-padding: 10;\n" +
+                "    -fx-font-size:40;";
+
+        //Decide image based on outcome of game
+        ImageView GTCOutcome;
+        if(colorGameLogic.hasWon()) {
+            GTCOutcome = getImageView("SubmitWin.png", 500, 500);
+        } else {
+            GTCOutcome = getImageView("SubmitLoss.png", 500, 500);
+        }
+
+        //Setup return button
+        Button GTCReturnBtn = new Button("Return");
+        GTCReturnBtn.setStyle(cssStyle);
+        GTCReturnBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                primaryStage.setScene(selectScene);
+            }
+        });
+
+        HBox GTCOptions = new HBox();
+
+        //Setup replay button
+        Button replayBtn = new Button("Replay");
+        replayBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetClrGame(colorGameScene, primaryStage);
+            }
+        });
+
+        //Format buttons
+        replayBtn.setStyle(cssStyle);
+        GTCOptions.getChildren().addAll(replayBtn, GTCReturnBtn);
+        GTCOptions.setSpacing(40);
+        GTCOptions.setTranslateX(475);
+        GTCOptions.setTranslateY(500);
+        GTCOutcome.setTranslateY(-150);
+        GTCOutcome.setTranslateX(-50);
+
+        //Display answer
+        GTCColor[] blind = colorGameLogic.getBlind();
+        int i = 0;
+        for(Node child :grey.getChildren()) {
+            ImageView greyImage = (ImageView) child;
+            String imageName = blind[i].getColor() + ".png";
+            greyImage.setImage(new Image(imageName));
+            i++;
+        }
+        //Fade out background when game ends
+        for(Node child : colorGamePane.getChildren()) {
+            child.setOpacity(0.5);
+        }
+        colorGamePane.getChildren().addAll(GTCOutcome, GTCOptions);
+    }
+
+    /**
+     * Resets the colour game
+     * @param colorGameScene previous color game scene used
+     * @param primaryStage primary stage of application
+     */
+    private void resetClrGame(Scene colorGameScene, Stage primaryStage) {
+        colorGameLogic = new ColorGame();
+        BorderPane colorGame = new BorderPane();
+        StackPane colorGamePane = new StackPane();
+        colorGameScene = new Scene(colorGamePane, 1200, 800);
+        Button gameReturnButton = new Button("Return");
+        gameReturnButton.setOnAction(e -> primaryStage.setScene(selectScene));
+        ImageView colorGameTitle = getImageView("colorBack.PNG", 800, 1200);
+        formatGameScreen(colorGameScene, colorGamePane, colorGame, colorGameTitle, primaryStage);
+        primaryStage.setScene(colorGameScene);
+    }
+
+    /**
+     * Clears pinCOlors array
+     * @param pinColors array of current colors of all pins
+     */
+    private void clearPinColors(GTCColor[][] pinColors) {
+            pinColors = new GTCColor[8][4];
+            for(int i = 0; i < 8; i++) {
+                for(int j = 0; j <4; j++) {
+                    pinColors[i][j] = GTCColor.Empty;
+                }
+            }
+        }
 
     /**
      * Gets the corresponding image for a hint and returns the associated ImageView
@@ -504,18 +627,22 @@ public class MainPage extends Application {
             imageName += String.valueOf(not) + "not";
         }
         imageName += ".png";
-        System.out.println(imageName + "-------------");
         return getImageView(imageName, 50, 50);
     }
 
     //Gets users guess
     private GTCColor[] getGuess(Circle[][] pins, GTCColor[][] pinColors) {
         int col = 0;
+        boolean found = false;
         for(int i = 0; i < 8; i++) {
             if(pins[i][3].getFill() == Color.GREY) {
                 col = i - 1;
+                found = true;
                 break;
             }
+        }
+        if(found == false) {
+            col = 7;
         }
         GTCColor[] guess = new GTCColor[4];
         for(int i = 0; i < 4; i++) {

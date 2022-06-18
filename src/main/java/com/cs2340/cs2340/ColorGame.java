@@ -93,6 +93,9 @@ public class ColorGame {
      * @return whether the game has been won.
      */
     public boolean hasWon() {
+        if(mostRecentHint == null) {
+            return false;
+        }
         for (int i = 0; i < GUESS_SIZE; i++) {
             if (mostRecentHint[i] != GTCColor.Hint_Correct) {
                 return false;
@@ -131,5 +134,14 @@ public class ColorGame {
      */
     public int getNumGuesses() {
        return this.numberGuesses;
+    }
+
+    public void reset() {
+        numberGuesses = 0;
+        blind = new GTCColor[GUESS_SIZE];
+        Random random = new Random();
+        for (int i = 0; i < GUESS_SIZE; i++) {
+            blind[i] = colorPossibilities[random.nextInt(colorPossibilities.length)];
+        }
     }
 }
