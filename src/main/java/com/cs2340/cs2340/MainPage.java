@@ -6,10 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -32,7 +30,6 @@ public class MainPage extends Application {
 
     private static Scene selectScene;
     private static Button tempBackBtn;
-    private static int gtcCounter;
 
     private static ColorPage colorPage = new ColorPage();
 
@@ -293,27 +290,27 @@ public class MainPage extends Application {
     private void formatHomeScreen(Button btnStart, StackPane homeScreen, BorderPane homeBP, ImageView homeTitle, ImageView icons, Button exitBtn) {
         //Add elements to home screen scene
         VBox vbox = new VBox(15);
-        vbox.getChildren().addAll(homeTitle, btnStart, icons);
+
+        HBox buttonHBox = new HBox(40);
+        buttonHBox.getChildren().addAll(btnStart, exitBtn);
+
+        buttonHBox.setAlignment(Pos.CENTER);
+        vbox.getChildren().addAll(homeTitle, buttonHBox, icons);
         vbox.setAlignment(Pos.CENTER);
         homeBP.setCenter(vbox);
-        exitBtn.setStyle(" -fx-text-fill: #006464;\n" +
-                "    -fx-background-color: #DFB951;\n" +
-                "    -fx-border-radius: 30;\n" +
-                "    -fx-background-radius: 30;\n" +
-                "    -fx-padding: 10;\n" +
-                "    -fx-font-size:20;");
-        exitBtn.setTranslateX(-520);
-        exitBtn.setTranslateY(-350);
+        exitBtn.setStyle("-fx-background-color: #DFB951;\n" +
+        "    -fx-border-radius: 30;\n" +
+                "    -fx-background-radius: 90;\n" +
+                "    -fx-padding: 20;\n" +
+                "    -fx-font-size: 20");
         exitBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 exit();
             }
         });
-        homeScreen.getChildren().addAll(homeBP, exitBtn);
+        homeScreen.getChildren().addAll(homeBP);
     }
-
-
 
 
 
