@@ -25,7 +25,7 @@ public class ColorPage {
 
     private static ColorGame colorGameLogic = new ColorGame();
 
-    private static MainPage main = new MainPage();
+    private static MainPage main= new MainPage();
     public static void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
         MainPage.setButton(colorBackReturn);
 
