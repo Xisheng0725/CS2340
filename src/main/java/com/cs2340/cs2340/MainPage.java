@@ -116,8 +116,7 @@ public class MainPage extends Application {
         colorBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
 
         Button enterGame = new Button("Start Game");
-        enterGame.setOnAction(e -> primaryStage.setScene(colorGameScene));
-        ColorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame);
+        colorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame, primaryStage, colorGameScene);
 
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
@@ -343,16 +342,7 @@ public class MainPage extends Application {
 
 
 
-    // helper for when user click return button, all the pin are clear
-    public void clearPin(Circle[][] pins) {
-        for (int i = 0; i < pins.length; i++) {
-            for (int j = 0; j < pins[i].length; j++) {
-                if (pins[i][j].getFill() != Color.GREY) {
-                    pins[i][j].setFill(Color.GREY);
-                }
-            }
-        }
-    }
+
 
     // enter pin loop
     public static void enterPin(Image tempImage, Circle[][] pins, GTCColor[][] pinColors, GTCColor tempColor) {
