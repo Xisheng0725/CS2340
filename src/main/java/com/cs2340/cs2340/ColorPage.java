@@ -267,7 +267,7 @@ public class ColorPage {
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
             }
-            ImageView fourNotIV = main.getImageView("4not.png", 50 ,50);
+            ImageView fourNotIV = main.getImageView("4notoriginal.png", 50 ,50);
             fourNotIV.setTranslateX(-5);
             eachRound.add(fourNotIV, i, 4);
         }
