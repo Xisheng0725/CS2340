@@ -278,6 +278,16 @@ public class MainPage extends Application {
         hbox.setTranslateY(-90);
         retBtn.setTranslateX(30);
         retBtn.setTranslateY(-30);
+
+        //Add glow effects to selection screen
+        colorPage.glow(retBtn);
+        colorPage.glow(bsIV);
+        colorPage.glow(bsInfo);
+        colorPage.glow(bjIV);
+        colorPage.glow(bjInfo);
+        colorPage.glow(clrIV);
+        colorPage.glow(clrInfo);
+
         main.getChildren().addAll(bp);
     }
 
@@ -309,6 +319,10 @@ public class MainPage extends Application {
                 exit();
             }
         });
+
+        //Add glow effects to home screen
+        colorPage.glow(btnStart);
+        colorPage.glow(exitBtn);
         homeScreen.getChildren().addAll(homeBP);
     }
 
@@ -369,7 +383,6 @@ public class MainPage extends Application {
      * @return ImageView of image passed in with requested height and width
      */
     public static ImageView getImageView(String fileName, int height, int width) {
-        System.out.println(fileName);
         Image image = new Image(fileName);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height);
