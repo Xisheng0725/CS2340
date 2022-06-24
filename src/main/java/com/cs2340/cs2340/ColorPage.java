@@ -1,5 +1,6 @@
 package com.cs2340.cs2340;
 
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -26,10 +27,23 @@ public class ColorPage {
     private static ColorGame colorGameLogic = new ColorGame();
 
     private static MainPage main= new MainPage();
-    public static void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame) {
+    public void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame, Stage primaryStage, Scene colorGameScene) {
         MainPage.setButton(colorBackReturn);
 
+        colorBackReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                primaryStage.setScene(main.getSelectScene());
+            }
+        });
         MainPage.setButton(enterGame);
+
+        enterGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                resetClrGame(colorGameScene, primaryStage);
+            }
+        });
 
         HBox buttonHbox = new HBox(1030);
         buttonHbox.getChildren().addAll(colorBackReturn, enterGame);
@@ -274,15 +288,20 @@ public class ColorPage {
             for (int j = 0; j < columns; j++) {
                 pinColors[i][j] = GTCColor.Empty;
                 Circle circle = new Circle(20);
-                circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent mouseEvent) {
-                        if(circle.getFill() != Color.GREY) {
-                            gtcCounter--;
+                ImageView fourNotIV = main.getImageView("4not.png", 50 ,50);
+                fourNotIV.setTranslateX(-5);
+                eachRound.add(fourNotIV, i, 4);
+                    circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                        @Override
+                        public void handle(MouseEvent mouseEvent) {
+
+                            if(circle.getFill() != Color.GREY) {
+                                gtcCounter--;
+                            }
+                            circle.setFill(Color.GREY);
                         }
-                        circle.setFill(Color.GREY);
-                    }
-                });
+                    });
+
                 pins[i][j] = circle;
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
@@ -363,7 +382,7 @@ public class ColorPage {
         colorBackBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                main.clearPin(pins);
+                clearPin(pins);
                 primaryStage.setScene(main.getSelectScene());
             }
         });
@@ -394,6 +413,8 @@ public class ColorPage {
         colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound,
                 grey, allColors, imageCheckHead);
     }
+
+
 
     /**
      * Gets the corresponding image for a hint and returns the associated ImageView
@@ -447,4 +468,17 @@ public class ColorPage {
         }
         return guess;
     }
+
+    // helper for when user click return button, all the pin are clear
+    public void clearPin(Circle[][] pins) {
+        for (int i = 0; i < pins.length; i++) {
+            for (int j = 0; j < pins[i].length; j++) {
+                if (pins[i][j].getFill() != Color.GREY) {
+                    pins[i][j].setFill(Color.GREY);
+                }
+            }
+        }
+    }
+
+
 }
