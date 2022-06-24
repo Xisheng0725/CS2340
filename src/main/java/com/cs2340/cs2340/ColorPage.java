@@ -88,7 +88,7 @@ public class ColorPage {
                 if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
                     return;
                 }
-                glow.setLevel(0.5);
+                glow.setLevel(0.3);
             }
         });
         color.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -205,27 +205,7 @@ public class ColorPage {
         imageCheckHead.setTranslateY(500);
 
         //Glow effect for image on mouse hover
-        Glow glow = new Glow();
-        glow.setLevel(0);
-        imageCheckHead.setEffect(glow);
-        imageCheckHead.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
-                    return;
-                }
-                glow.setLevel(0.8);
-            }
-        });
-        imageCheckHead.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if(colorGameLogic.hasWon() || colorGameLogic.hasLost()) {
-                    return;
-                }
-                glow.setLevel(0);
-            }
-        });
+        glow(imageCheckHead);
 
         HBox title = new HBox();
         ImageView title1 = main.getImageView("GTC Title.png", 100, 500);
@@ -305,6 +285,7 @@ public class ColorPage {
                 main.enterPin(redImage, pins, pinColors, GTCColor.Red);
             }
         });
+        glow(red);
         orange.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -316,6 +297,7 @@ public class ColorPage {
                 main.enterPin(orangeImage, pins, pinColors, GTCColor.Orange);
             }
         });
+        glow(orange);
         yellow.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -327,6 +309,7 @@ public class ColorPage {
                 main.enterPin(yellowImage, pins, pinColors, GTCColor.Yellow);
             }
         });
+        glow(yellow);
         green.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -338,6 +321,7 @@ public class ColorPage {
                 main.enterPin(greenImage, pins, pinColors, GTCColor.Green);
             }
         });
+        glow(green);
         blue.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -349,6 +333,7 @@ public class ColorPage {
                 main.enterPin(blueImage, pins, pinColors, GTCColor.Blue);
             }
         });
+        glow(blue);
         purple.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -360,6 +345,7 @@ public class ColorPage {
                 main.enterPin(purpleImage, pins, pinColors, GTCColor.Purple);
             }
         });
+        glow(purple);
         colorBackBtn.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
@@ -367,6 +353,7 @@ public class ColorPage {
                 primaryStage.setScene(main.getSelectScene());
             }
         });
+        glow(colorBackBtn);
 
         //Submit button logic
         imageCheckHead.setOnMouseClicked(new EventHandler<MouseEvent>() {
