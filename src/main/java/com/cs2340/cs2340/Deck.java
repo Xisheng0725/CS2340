@@ -3,6 +3,7 @@ package com.cs2340.cs2340;
 import java.util.List;
 
 public class Deck {
+
     public Deck() {
 
     }
