@@ -29,6 +29,7 @@ public class ColorPage {
     private static MainPage main= new MainPage();
     public void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame, Stage primaryStage, Scene colorGameScene) {
         MainPage.setButton(colorBackReturn);
+        glow(colorBackReturn);
 
         colorBackReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -37,7 +38,7 @@ public class ColorPage {
             }
         });
         MainPage.setButton(enterGame);
-
+        glow(enterGame);
         enterGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
