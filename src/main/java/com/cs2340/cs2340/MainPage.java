@@ -32,6 +32,7 @@ public class MainPage extends Application {
     private static Button tempBackBtn;
 
     private static ColorPage colorPage = new ColorPage();
+    private static BlackjackPage bjPage = new BlackjackPage();
     private static BlackjackInfoPage blackjackInfoPage = new BlackjackInfoPage();
 
     /**
@@ -135,6 +136,11 @@ public class MainPage extends Application {
                 blackjackTitle, primaryStage, colorGameScene);
 
 
+        //Create Blackjack game page
+        Pane bjGamePane = new Pane();
+        Scene bjGameScene = new Scene(bjGamePane, 1200, 800);
+        bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
+
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
 
@@ -164,7 +170,7 @@ public class MainPage extends Application {
                     public void handle(ActionEvent e) {
                         fadeBj.stop();
                         fadeClr.stop();
-                        primaryStage.setScene(tempScene);
+                        primaryStage.setScene(bjGameScene);
                     }
                 }) ;
             }
