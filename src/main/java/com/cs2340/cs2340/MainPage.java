@@ -32,6 +32,7 @@ public class MainPage extends Application {
     private static Button tempBackBtn;
 
     private static ColorPage colorPage = new ColorPage();
+    private static BlackjackPage blackjackPage = new BlackjackPage();
 
     /**
      * Create the main method.
@@ -118,6 +119,22 @@ public class MainPage extends Application {
         Button enterGame = new Button("Start Game");
         colorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame, primaryStage, colorGameScene);
 
+
+        //Create the blackjack instruction page
+        BorderPane blackjackBP = new BorderPane();
+        StackPane blackjackPane = new StackPane();
+        Scene blackjackScene = new Scene(blackjackPane, 1200, 800);
+        ImageView blackjackTitle = getImageView("bj_info.PNG", 800, 1200);
+        Button blackjackBackBtn = new Button("Return");
+        blackjackBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
+
+        Button enterBlackjackGame = new Button("Start Game");
+        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(selectScene));
+
+        blackjackPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
+                blackjackTitle, primaryStage, colorGameScene);
+
+
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
 
@@ -202,7 +219,8 @@ public class MainPage extends Application {
                 });
             }
         });
-        selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectBjInfo.setOnAction(e -> primaryStage.setScene(blackjackScene));
+        //selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectClrInfo.setOnAction(e -> primaryStage.setScene(colorScene));
 
