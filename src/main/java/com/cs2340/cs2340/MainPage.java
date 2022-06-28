@@ -32,7 +32,7 @@ public class MainPage extends Application {
     private static Button tempBackBtn;
 
     private static ColorPage colorPage = new ColorPage();
-    private static BlackjackPage blackjackPage = new BlackjackPage();
+    private static BlackjackInfoPage blackjackInfoPage = new BlackjackInfoPage();
 
     /**
      * Create the main method.
@@ -131,7 +131,7 @@ public class MainPage extends Application {
         Button enterBlackjackGame = new Button("Start Game");
         enterBlackjackGame.setOnAction(e -> primaryStage.setScene(selectScene));
 
-        blackjackPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
+        blackjackInfoPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
                 blackjackTitle, primaryStage, colorGameScene);
 
 

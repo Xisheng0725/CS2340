@@ -1,25 +1,17 @@
 package com.cs2340.cs2340;
 
-import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Glow;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 /**
  * The class that will create the menu and interface for the GTC game.
  */
-public class BlackjackPage {
+public class BlackjackInfoPage {
     private static MainPage main= new MainPage();
     public void formatBlackjackScreen(Button enterBlackjackGame, Button blackjackBackReturn, StackPane blackjackPane, BorderPane blackjackBP,
                                       ImageView blackjackTitle, Stage primaryStage, Scene colorGameScene) {
