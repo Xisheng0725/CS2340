@@ -33,6 +33,7 @@ public class MainPage extends Application {
 
     private static ColorPage colorPage = new ColorPage();
     private static BlackjackPage bjPage = new BlackjackPage();
+    private static BlackjackInfoPage blackjackInfoPage = new BlackjackInfoPage();
 
     /**
      * Create the main method.
@@ -117,8 +118,23 @@ public class MainPage extends Application {
         colorBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
 
         Button enterGame = new Button("Start Game");
-        enterGame.setOnAction(e -> primaryStage.setScene(colorGameScene));
-        ColorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame);
+        colorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame, primaryStage, colorGameScene);
+
+
+        //Create the blackjack instruction page
+        BorderPane blackjackBP = new BorderPane();
+        StackPane blackjackPane = new StackPane();
+        Scene blackjackScene = new Scene(blackjackPane, 1200, 800);
+        ImageView blackjackTitle = getImageView("bj_info.PNG", 800, 1200);
+        Button blackjackBackBtn = new Button("Return");
+        blackjackBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
+
+        Button enterBlackjackGame = new Button("Start Game");
+        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(selectScene));
+
+        blackjackInfoPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
+                blackjackTitle, primaryStage, colorGameScene);
+
 
         //Create Blackjack game page
         Pane bjGamePane = new Pane();
@@ -209,7 +225,8 @@ public class MainPage extends Application {
                 });
             }
         });
-        selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectBjInfo.setOnAction(e -> primaryStage.setScene(blackjackScene));
+        //selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectClrInfo.setOnAction(e -> primaryStage.setScene(colorScene));
 
@@ -284,6 +301,16 @@ public class MainPage extends Application {
         hbox.setTranslateY(-90);
         retBtn.setTranslateX(30);
         retBtn.setTranslateY(-30);
+
+        //Add glow effects to selection screen
+        colorPage.glow(retBtn);
+        colorPage.glow(bsIV);
+        colorPage.glow(bsInfo);
+        colorPage.glow(bjIV);
+        colorPage.glow(bjInfo);
+        colorPage.glow(clrIV);
+        colorPage.glow(clrInfo);
+
         main.getChildren().addAll(bp);
     }
 
@@ -315,6 +342,10 @@ public class MainPage extends Application {
                 exit();
             }
         });
+
+        //Add glow effects to home screen
+        colorPage.glow(btnStart);
+        colorPage.glow(exitBtn);
         homeScreen.getChildren().addAll(homeBP);
     }
 
@@ -335,16 +366,7 @@ public class MainPage extends Application {
 
 
 
-    // helper for when user click return button, all the pin are clear
-    public void clearPin(Circle[][] pins) {
-        for (int i = 0; i < pins.length; i++) {
-            for (int j = 0; j < pins[i].length; j++) {
-                if (pins[i][j].getFill() != Color.GREY) {
-                    pins[i][j].setFill(Color.GREY);
-                }
-            }
-        }
-    }
+
 
     // enter pin loop
     public static void enterPin(Image tempImage, Circle[][] pins, GTCColor[][] pinColors, GTCColor tempColor) {
@@ -375,7 +397,6 @@ public class MainPage extends Application {
      * @return ImageView of image passed in with requested height and width
      */
     public static ImageView getImageView(String fileName, int height, int width) {
-        System.out.println(fileName);
         Image image = new Image(fileName);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(height);
