@@ -7,9 +7,19 @@ import java.util.List;
  * https://bicyclecards.com/how-to-play/blackjack/
  */
 public class BlackjackGame {
+    private Hand playerHand;
+    private Hand dealerHand;
+    private Deck deck;
 
     public BlackjackGame() {
-        // should deal player and dealer 2 cards each
+        playerHand = new Hand();
+        dealerHand = new Hand();
+        deck = new Deck();
+
+        for(int i = 0; i < 2; i++) {
+            playerHand.addCard(deck.draw());
+            dealerHand.addCard(deck.draw());
+        }
     }
 
     /**
@@ -17,34 +27,54 @@ public class BlackjackGame {
      * @param cards the card list to set the deck to.
      */
     protected BlackjackGame(List<Card> cards) {
-        // set deck = cards and then deal player and dealer 2 cards each (player first)
+        deck = new Deck(cards);
+        for(int i = 0; i < 2; i++) {
+            playerHand.addCard(deck.draw());
+            dealerHand.addCard(deck.draw());
+        }
     }
 
     public void hit() {
         // deal player another card
+        playerHand.addCard(deck.draw());
     }
 
     public void stand() {
-        // standing causes the dealer to deal to themselves until they stand
+        if(deck.getCards().isEmpty()) {
+            throw new IndexOutOfBoundsException();
+        }
+        //standing causes the dealer to deal to themselves until they stand
+        while(dealerHand.getValue() < 17) {
+            dealerHand.addCard(deck.draw());
+        }
     }
 
     public boolean won() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        if(playerHand.getValue() > dealerHand.getValue() && playerHand.getValue() <= 21) {
+            return true;
+        } else if(playerHand.getValue() <= 21 && dealerHand.getValue() > 21) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean lost() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        if(!won()) {return true;} else {return false;}
     }
 
     public boolean tie() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        if(playerHand.getValue() == dealerHand.getValue() && playerHand.getValue() <= 21) {
+            return true;
+        }
+        return false;
     }
 
     public Hand getPlayerHand() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        return playerHand;
     }
 
     public Hand getDealerHand() {
-        throw new UnsupportedOperationException("not implemented yet.");
+        return dealerHand;
     }
 }
