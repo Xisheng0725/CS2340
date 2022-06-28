@@ -121,6 +121,13 @@ public class MainPage extends Application {
         colorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame, primaryStage, colorGameScene);
 
 
+
+        //Create Blackjack game page
+        Pane bjGamePane = new Pane();
+        Scene bjGameScene = new Scene(bjGamePane, 1200, 800);
+        bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
+
+
         //Create the blackjack instruction page
         BorderPane blackjackBP = new BorderPane();
         StackPane blackjackPane = new StackPane();
@@ -130,16 +137,11 @@ public class MainPage extends Application {
         blackjackBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
 
         Button enterBlackjackGame = new Button("Start Game");
-        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(selectScene));
+        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(bjGameScene));
 
         blackjackInfoPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
                 blackjackTitle, primaryStage, colorGameScene);
 
-
-        //Create Blackjack game page
-        Pane bjGamePane = new Pane();
-        Scene bjGameScene = new Scene(bjGamePane, 1200, 800);
-        bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
 
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
