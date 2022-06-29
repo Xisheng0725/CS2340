@@ -178,6 +178,7 @@ public class BlackjackPage {
     public void reset() {
         pane = new Pane();
         scene.setRoot(pane);
+
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // reset the blackjacklogic variable here
 
