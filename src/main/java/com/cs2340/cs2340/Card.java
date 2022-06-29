@@ -17,7 +17,7 @@ public class Card {
         // 11 -> jack
         // 12 -> queen
         // 13 -> king
-        this.setValue(getValue());
+        this.setValue(face);
     }
 
     public int getBlackjackValue() {

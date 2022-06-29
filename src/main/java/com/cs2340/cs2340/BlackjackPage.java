@@ -28,6 +28,10 @@ public class BlackjackPage {
     private Stage primaryStage;
     private MainPage mainPage;
 
+    private BlackjackGame blackjackGame = new BlackjackGame();
+
+    private Hand hand = new Hand();
+
     private Text dealerHandValue;
     private Text playerHandValue;
 
@@ -43,6 +47,7 @@ public class BlackjackPage {
 
         // Return button
         Button backBtn = new Button("Return");
+        makeGlow((backBtn));
         MainPage.setButton(backBtn);
         backBtn.setTranslateX(30);
         backBtn.setTranslateY(750);
@@ -58,22 +63,26 @@ public class BlackjackPage {
         pane.getChildren().add(cardStack);
 
         // Hit button
+        boolean check = true;
         ImageView hit = MainPage.getImageView("hit.png", 180, 180);
         hit.relocate(400, 570);
         makeGlow(hit);
         hit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // find whether it's the dealer's turn and pass in as parameter
-            hit();
+           // if (check) {
+                hit();
+           // }
         });
 
         // Stand button
         ImageView stand = MainPage.getImageView("stand.png", 180, 180);
         stand.relocate(630, 570);
         makeGlow(stand);
-        hit.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
+
+        stand.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            // tell blackjack to stand
+            //check = false;
         });
 
         Font valueFont = new Font("verdana", 64);
@@ -96,21 +105,22 @@ public class BlackjackPage {
     private void hit() {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // only draw a card if the game isn't won/lost/tied
-        // if () {
-        drawCard(false);
-        // }
+         if (blackjackGame.getPlayerHand().getValue() < 21) {
+             drawCard(false);
+         }
     }
 
     private void drawCard(boolean dealer) {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // should be the size of the player/dealer's hand
         // (i.e. if hand has 3 cards, index should be 3 so it slides to the correct position)
-        int index = 0;
+        int index = blackjackGame.getPlayerHand().getHand().size();
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // should call Blackjack to draw a card for the player/dealer
 
-        int drawnCard = 1; // get the drawn card
+        int drawnCard = blackjackGame.hit(); // get the drawn card
+        System.out.println(drawnCard);
 
         if (dealer) {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -119,7 +129,7 @@ public class BlackjackPage {
         } else {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // set player hand value text to game logic's value for it
-            playerHandValue.setText("1");
+            playerHandValue.setText(String.valueOf(blackjackGame.getPlayerHand().getValue()));
         }
         createAndAnimateCard(drawnCard, dealer, index);
     }
@@ -199,7 +209,7 @@ public class BlackjackPage {
         return MainPage.getImageView(fileName + ".png", CARD_HEIGHT, CARD_WIDTH);
     }
 
-    private void makeGlow(Node node) {
+    public void makeGlow(Node node) {
         double glowAmount = 0.5;
         Glow glow = new Glow();
         glow.setLevel(0);

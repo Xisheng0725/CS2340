@@ -33,8 +33,9 @@ public class Deck {
     public Card draw() {
         // remove and return first card in card list
         // must draw from the beginning of the deck (cardList[0]) in order to work with tests
-        return this.getCards().remove(0);
+        return this.getCards().remove(1);
     }
+
 
     public ArrayList<Card> getCards() {
         return cards;
