@@ -280,6 +280,7 @@ public class ColorPage {
                                 gtcCounter--;
                             }
                             circle.setFill(Color.GREY);
+
                         }
                     });
 
