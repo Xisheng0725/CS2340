@@ -21,7 +21,6 @@ import javafx.stage.Stage;
  */
 public class ColorPage {
 
-    private static ColorGame colorLogic;
     private static int gtcCounter;
 
     private static ColorGame colorGameLogic = new ColorGame();
@@ -275,11 +274,10 @@ public class ColorPage {
                     circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-
-                            if(circle.getFill() != Color.GREY) {
+                            if(circle.getFill() != Color.GREY && isValidRemove(pins, circle)) {
                                 gtcCounter--;
+                                circle.setFill(Color.GREY);
                             }
-                            circle.setFill(Color.GREY);
                         }
                     });
 
@@ -402,6 +400,18 @@ public class ColorPage {
                 grey, allColors, imageCheckHead);
     }
 
+    private boolean isValidRemove(Circle[][] pins, Circle circle) {
+        int currentCol = colorGameLogic.getNumGuesses();
+        int circleCol = 0;
+        for(int col = 0; col < 8; col++) {
+            for(int row = 0; row < 4; row++) {
+                if(pins[col][row] == circle) {
+                    circleCol = col;
+                }
+            }
+        }
+        return circleCol == currentCol;
+    }
 
 
     /**
