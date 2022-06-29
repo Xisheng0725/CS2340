@@ -16,6 +16,7 @@ public class Hand {
     public int getValue() {
         int aceCount = 0;
         int total = 0;
+
         for(Card card : hand) {
             if(card.getBlackjackValue() == 11) {
                 aceCount++;

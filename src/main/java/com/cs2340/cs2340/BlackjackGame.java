@@ -16,10 +16,6 @@ public class BlackjackGame {
         dealerHand = new Hand();
         deck = new Deck();
 
-        for(int i = 0; i < 2; i++) {
-            playerHand.addCard(deck.draw());
-            dealerHand.addCard(deck.draw());
-        }
     }
 
     /**
@@ -28,10 +24,6 @@ public class BlackjackGame {
      */
     protected BlackjackGame(List<Card> cards) {
         deck = new Deck(cards);
-        for(int i = 0; i < 2; i++) {
-            playerHand.addCard(deck.draw());
-            dealerHand.addCard(deck.draw());
-        }
     }
 
     public int hit() {

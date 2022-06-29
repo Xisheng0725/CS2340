@@ -106,7 +106,7 @@ public class BlackjackPage {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // only draw a card if the game isn't won/lost/tied
          if (blackjackGame.getPlayerHand().getValue() < 21) {
-            drawCard(false);
+             drawCard(false);
          }
     }
 
@@ -114,7 +114,7 @@ public class BlackjackPage {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // should be the size of the player/dealer's hand
         // (i.e. if hand has 3 cards, index should be 3 so it slides to the correct position)
-        int index = blackjackGame.getPlayerHand().getHand().size() - 1;
+        int index = blackjackGame.getPlayerHand().getHand().size();
 
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // should call Blackjack to draw a card for the player/dealer
@@ -129,7 +129,7 @@ public class BlackjackPage {
         } else {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // set player hand value text to game logic's value for it
-            playerHandValue.setText(String.valueOf(drawnCard));
+            playerHandValue.setText(String.valueOf(blackjackGame.getPlayerHand().getValue()));
         }
         createAndAnimateCard(drawnCard, dealer, index);
     }
