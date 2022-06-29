@@ -47,22 +47,23 @@ public class ColorGame {
         int countCorrect = 0;
         int countWrongSpot = 0;
 
-        // Check the guess
-        for (int i = 0; i < colors.length; i++) {
-            // If the color is in the right spot, the player gets a 'correct' hint
-            if (colors[i] == blind[i]) {
-                countCorrect++;
-            } else {
-                // If it's in the wrong spot, check the rest of the blind to see if the
-                // guess shows up somewhere else
-                blindCheck: for (int j = 0; j < blind.length; j++) {
-                    // If it does, give a 'wrong spot' hint
-                    if (colors[i] == blind[j]) {
-                        countWrongSpot++;
-                        break blindCheck;
-                    }
+        for (var color : colorPossibilities) {
+            int numInGuess = 0;
+            int numInBox = 0;
+            int numRightPos = 0;
+            for (int i = 0; i < GUESS_SIZE; i++) {
+                if (colors[i] == color) {
+                    numInGuess++;
+                }
+                if (blind[i] == color) {
+                    numInBox++;
+                }
+                if (colors[i] == color && colors[i] == blind[i]) {
+                    numRightPos++;
                 }
             }
+            countCorrect += numRightPos;
+            countWrongSpot += Math.min(numInBox - numRightPos, numInGuess);
         }
 
         // Create the hint array from the 'correct' and 'wrong spot' hint counts
