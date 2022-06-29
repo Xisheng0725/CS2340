@@ -13,6 +13,8 @@ import javafx.stage.Stage;
  */
 public class BlackjackInfoPage {
     private static MainPage main= new MainPage();
+
+    private BlackjackPage BJPage = new BlackjackPage();
     public void formatBlackjackScreen(Button enterBlackjackGame, Button blackjackBackReturn, StackPane blackjackPane, BorderPane blackjackBP,
                                       ImageView blackjackTitle, Stage primaryStage, Scene colorGameScene) {
 
@@ -20,6 +22,7 @@ public class BlackjackInfoPage {
 
         //Set the style of the return button.
         MainPage.setButton(blackjackBackReturn);
+        BJPage.makeGlow(blackjackBackReturn);
         blackjackBackReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -29,6 +32,7 @@ public class BlackjackInfoPage {
 
         //set the style of the start game button.
         MainPage.setButton(enterBlackjackGame);
+        BJPage.makeGlow(enterBlackjackGame);
         enterBlackjackGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {

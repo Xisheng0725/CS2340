@@ -34,9 +34,11 @@ public class BlackjackGame {
         }
     }
 
-    public void hit() {
+    public int hit() {
         // deal player another card
-        playerHand.addCard(deck.draw());
+        Card temp = deck.draw();
+        playerHand.addCard(temp);
+        return temp.getBlackjackValue();
     }
 
     public void stand() {
