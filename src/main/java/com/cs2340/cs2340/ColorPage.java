@@ -399,6 +399,19 @@ public class ColorPage {
         colorGamePane.getChildren().addAll(colorGameTitle, gamePosition, title, colorGame, eachRound,
                 grey, allColors, imageCheckHead);
     }
+    
+    private boolean isValidRemove(Circle[][] pins, Circle circle) {
+        int currentCol = colorGameLogic.getNumGuesses();
+        int circleCol = 0;
+        for(int col = 0; col < 8; col++) {
+            for(int row = 0; row < 4; row++) {
+                if(pins[col][row] == circle) {
+                    circleCol = col;
+                }
+            }
+        }
+        return circleCol == currentCol;
+    }
 
     private boolean isValidRemove(Circle[][] pins, Circle circle) {
         int currentCol = colorGameLogic.getNumGuesses();

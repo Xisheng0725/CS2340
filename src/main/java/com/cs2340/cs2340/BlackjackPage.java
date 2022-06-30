@@ -16,6 +16,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+
 /**
  * Creates the menu and interface for the Blackjack game.
  */
@@ -82,7 +83,7 @@ public class BlackjackPage {
 
         stand.addEventHandler(MouseEvent.MOUSE_CLICKED, e -> {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-            //check = false;
+            AIDrawCard(true);
         });
 
         Font valueFont = new Font("verdana", 64);
@@ -107,6 +108,8 @@ public class BlackjackPage {
         // only draw a card if the game isn't won/lost/tied
          if (blackjackGame.getPlayerHand().getValue() < 21) {
              drawCard(false);
+         } else {
+             AIDrawCard(true);
          }
     }
 
@@ -120,18 +123,34 @@ public class BlackjackPage {
         // should call Blackjack to draw a card for the player/dealer
 
         int drawnCard = blackjackGame.hit(); // get the drawn card
-        System.out.println(drawnCard);
 
         if (dealer) {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // set dealer hand value text to game logic's value for it
-            dealerHandValue.setText("1"); // blackjackLogic.getDealerHandValue or something
+            System.out.println(blackjackGame.getDealerHand().getValue());
+            dealerHandValue.setText(String.valueOf(blackjackGame.getDealerHand().getValue())); // blackjackLogic.getDealerHandValue or something
         } else {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // set player hand value text to game logic's value for it
+            if (blackjackGame.getPlayerHand().getValue() >= 21) {
+                AIDrawCard(true);
+            }
             playerHandValue.setText(String.valueOf(blackjackGame.getPlayerHand().getValue()));
         }
         createAndAnimateCard(drawnCard, dealer, index);
+    }
+
+    private void AIDrawCard(boolean dealer) {
+        blackjackGame.stand();
+        int total = 0;
+        for (int index = 0; index < blackjackGame.getDealerHand().getHand().size(); index++) {
+            int drawCard = blackjackGame.getDealerHand().getHand().get(index).getValue();
+            System.out.println(drawCard);
+            total += drawCard;
+            dealerHandValue.setText(String.valueOf(total));
+            createAndAnimateCard(drawCard, dealer, index);
+        }
+
     }
 
     private void setUpHands() {
@@ -153,11 +172,13 @@ public class BlackjackPage {
         trans.setToX(endPosition.getX());
         trans.setToY(endPosition.getY());
         trans.play();
+
     }
 
     public void reset() {
         pane = new Pane();
         scene.setRoot(pane);
+
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // reset the blackjacklogic variable here
 

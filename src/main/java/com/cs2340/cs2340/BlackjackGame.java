@@ -38,10 +38,13 @@ public class BlackjackGame {
             throw new IndexOutOfBoundsException();
         }
         //standing causes the dealer to deal to themselves until they stand
-        while(dealerHand.getValue() < 17) {
-            dealerHand.addCard(deck.draw());
+        while(dealerHand.getValue() < 16) {
+            Card temp = deck.draw();
+            dealerHand.addCard(temp);
         }
+        System.out.println(dealerHand.getValue());
     }
+
 
     public boolean won() {
         if(playerHand.getValue() > dealerHand.getValue() && playerHand.getValue() <= 21) {
