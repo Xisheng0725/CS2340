@@ -275,10 +275,10 @@ public class ColorPage {
                     circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
                         @Override
                         public void handle(MouseEvent mouseEvent) {
-                              if(circle.getFill() != Color.GREY && isValidRemove(pins, circle)) {
-                                  gtcCounter--;
-                                  circle.setFill(Color.GREY);
-                              }
+                             if(circle.getFill() != Color.GREY && isValidRemove(pins, circle)) {
+                                 gtcCounter--;
+                                 circle.setFill(Color.GREY);
+                             }
                         }
                     });
 
