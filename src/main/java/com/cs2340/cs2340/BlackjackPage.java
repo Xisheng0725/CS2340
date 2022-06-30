@@ -151,7 +151,9 @@ public class BlackjackPage {
             int drawCard = blackjackGame.getDealerHand().getHand().get(index).getValue();
             total += drawCard;
             dealerHandValue.setText(String.valueOf(total));
-            createAndAnimateCard(drawCard, dealer, index);
+            if (index >= 2) {
+                createAndAnimateCard(drawCard, dealer, index);
+            }
         }
     }
 
