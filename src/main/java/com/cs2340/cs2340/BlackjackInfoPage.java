@@ -46,6 +46,7 @@ public class BlackjackInfoPage {
         buttonHbox.setTranslateY(-30);
         blackjackBP.setBottom(buttonHbox);
 
+
         blackjackPane.getChildren().addAll(blackjackTitle, blackjackBP);
 
     }

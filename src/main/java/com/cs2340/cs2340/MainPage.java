@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
@@ -65,6 +66,8 @@ public class MainPage extends Application {
         //Create and format homeScreen
         formatHomeScreen(homeStartBtn, homeMain, homeBP, homeTitle, icons, exitBtn);
         Scene homeScene = new Scene(homeMain, 1200, 800);
+        Image image = new Image("cursor.png");
+        homeScene.setCursor(new ImageCursor(image));
 
         
         //Set up primary stage
@@ -88,6 +91,8 @@ public class MainPage extends Application {
         //create and format selection scene
         formatSelectScene(selectMain, selectBP, selectReturn, hbox, selectBsImageView, selectBjImageView, selectClrImageView, selectBsInfo, selectBjInfo, selectClrInfo, selectionTitle);
         selectScene = new Scene(selectMain, 1200, 800);
+        selectScene.setCursor(new ImageCursor(image));
+
 
         //Create temporary construction scene
         Text tempTxt = new Text("This page is under construction...");
@@ -104,6 +109,7 @@ public class MainPage extends Application {
         BorderPane colorGame = new BorderPane();
         StackPane colorGamePane = new StackPane();
         Scene colorGameScene = new Scene(colorGamePane, 1200, 800);
+        colorGameScene.setCursor(new ImageCursor(image));
         Button gameReturnButton = new Button("Return");
         gameReturnButton.setOnAction(e -> primaryStage.setScene(selectScene));
         ImageView colorGameTitle = getImageView("colorBack.PNG", 800, 1200);
@@ -113,6 +119,7 @@ public class MainPage extends Application {
         BorderPane colorBP = new BorderPane();
         StackPane colorPane = new StackPane();
         Scene colorScene = new Scene(colorPane, 1200, 800);
+        colorScene.setCursor(new ImageCursor(image));
         ImageView colorTitle = getImageView("color.PNG", 800, 1200);
         Button colorBackBtn = new Button("Return");
         colorBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
@@ -132,6 +139,7 @@ public class MainPage extends Application {
         BorderPane blackjackBP = new BorderPane();
         StackPane blackjackPane = new StackPane();
         Scene blackjackScene = new Scene(blackjackPane, 1200, 800);
+        blackjackScene.setCursor(new ImageCursor(image));
         ImageView blackjackTitle = getImageView("bj_info.PNG", 800, 1200);
         Button blackjackBackBtn = new Button("Return");
         blackjackBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));

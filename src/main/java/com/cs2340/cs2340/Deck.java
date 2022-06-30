@@ -7,8 +7,8 @@ import java.util.List;
 public class Deck {
     private ArrayList<Card> cards;
     public Deck() {
-        setCards(new ArrayList<>(52));
-        for(int i = 0; i < 4; i++) {
+        setCards(new ArrayList<>(208));
+        for(int i = 0; i < 16; i++) {
             for(int j = 1; j < 14; j++) {
                 getCards().add(new Card(j, i));
             }
