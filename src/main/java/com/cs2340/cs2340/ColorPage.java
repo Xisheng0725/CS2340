@@ -269,11 +269,15 @@ public class ColorPage {
         GTCColor[][] pinColors = new GTCColor[8][4];
         int rows = 8;
         int columns = 4;
+        Image fourNotImage = new Image("4not.png");
+        Image fourNotOgImage = new Image("4notoriginal.png");
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 pinColors[i][j] = GTCColor.Empty;
                 Circle circle = new Circle(20);
-                ImageView fourNotIV = main.getImageView("4not.png", 50 ,50);
+                ImageView fourNotIV = new ImageView(fourNotImage);
+                fourNotIV.setFitWidth(50);
+                fourNotIV.setFitHeight(50);
                 fourNotIV.setTranslateX(-5);
                 eachRound.add(fourNotIV, i, 4);
                     circle.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -290,7 +294,9 @@ public class ColorPage {
                 circle.setFill(Color.GREY);
                 eachRound.add(pins[i][j], i, j);
             }
-            ImageView fourNotIV = main.getImageView("4notoriginal.png", 50 ,50);
+            ImageView fourNotIV = new ImageView(fourNotOgImage);
+            fourNotIV.setFitWidth(50);
+            fourNotIV.setFitHeight(50);
             fourNotIV.setTranslateX(-5);
             eachRound.add(fourNotIV, i, 4);
         }

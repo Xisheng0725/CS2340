@@ -158,15 +158,11 @@ public class BlackjackPage {
     }
 
     private void initialGame(Hand DealerHand, Hand PlayerHand) {
-        int player = 0;
-        int dealer = 0;
         for (int i = 0; i < 2; i++) {
-            player += PlayerHand.getHand().get(i).getValue();
             createAndAnimateCard(PlayerHand.getHand().get(i).getValue(), false, i);
-            dealer += DealerHand.getHand().get(i).getValue();
             createAndAnimateCard(DealerHand.getHand().get(i).getValue(), true, i);
         }
-        setUpHands(player, dealer);
+        setUpHands(PlayerHand.getValue(), DealerHand.getValue());
     }
 
     private void setUpHands(int player, int dealer) {
