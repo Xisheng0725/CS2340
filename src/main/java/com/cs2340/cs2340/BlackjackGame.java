@@ -15,7 +15,10 @@ public class BlackjackGame {
         playerHand = new Hand();
         dealerHand = new Hand();
         deck = new Deck();
-
+        for (int i = 0; i < 2; i++) {
+            playerHand.addCard(deck.draw());
+            dealerHand.addCard(deck.draw());
+        }
     }
 
     /**
@@ -24,6 +27,7 @@ public class BlackjackGame {
      */
     protected BlackjackGame(List<Card> cards) {
         deck = new Deck(cards);
+
     }
 
     public int hit() {
@@ -38,7 +42,7 @@ public class BlackjackGame {
             throw new IndexOutOfBoundsException();
         }
         //standing causes the dealer to deal to themselves until they stand
-        while(dealerHand.getValue() < 16) {
+        while(dealerHand.getValue() < 16 && playerHand.getValue() >= dealerHand.getValue()) {
             Card temp = deck.draw();
             dealerHand.addCard(temp);
         }

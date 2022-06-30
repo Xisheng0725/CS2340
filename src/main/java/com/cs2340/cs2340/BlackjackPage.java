@@ -2,10 +2,12 @@ package com.cs2340.cs2340;
 
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.effect.Glow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -39,12 +41,15 @@ public class BlackjackPage {
     public void formatGameScreen(Scene bjGameScene, Pane pane, Stage primaryStage, MainPage mainPage) {
         this.pane = pane;
         scene = bjGameScene;
+        Image image = new Image("cursor.png");
+        bjGameScene.setCursor(new ImageCursor(image));
         this.primaryStage = primaryStage;
         this.mainPage = mainPage;
 
         // Background
         ImageView gameBg = MainPage.getImageView("bg_total_placeholder.png", 800, 1200);
         pane.getChildren().add(gameBg);
+
 
         // Return button
         Button backBtn = new Button("Return");
@@ -100,7 +105,7 @@ public class BlackjackPage {
         playerHandValue.setFill(color);
 
         pane.getChildren().addAll(hit, stand, dealerHandValue, playerHandValue);
-        setUpHands();
+        initialGame(blackjackGame.getDealerHand(), blackjackGame.getPlayerHand());
     }
 
     private void hit() {
@@ -127,7 +132,6 @@ public class BlackjackPage {
         if (dealer) {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
             // set dealer hand value text to game logic's value for it
-            System.out.println(blackjackGame.getDealerHand().getValue());
             dealerHandValue.setText(String.valueOf(blackjackGame.getDealerHand().getValue())); // blackjackLogic.getDealerHandValue or something
         } else {
             // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -145,21 +149,31 @@ public class BlackjackPage {
         int total = 0;
         for (int index = 0; index < blackjackGame.getDealerHand().getHand().size(); index++) {
             int drawCard = blackjackGame.getDealerHand().getHand().get(index).getValue();
-            System.out.println(drawCard);
             total += drawCard;
             dealerHandValue.setText(String.valueOf(total));
             createAndAnimateCard(drawCard, dealer, index);
         }
-
     }
 
-    private void setUpHands() {
+    private void initialGame(Hand DealerHand, Hand PlayerHand) {
+        int player = 0;
+        int dealer = 0;
+        for (int i = 0; i < 2; i++) {
+            player += PlayerHand.getHand().get(i).getValue();
+            createAndAnimateCard(PlayerHand.getHand().get(i).getValue(), false, i);
+            dealer += DealerHand.getHand().get(i).getValue();
+            createAndAnimateCard(DealerHand.getHand().get(i).getValue(), true, i);
+        }
+        setUpHands(player, dealer);
+    }
+
+    private void setUpHands(int player, int dealer) {
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // iterate through initial player hand, calling createAndAnimateCard on each one
         // do the same for the entire dealer hand (original 2 cards + whatever else they draw)
         // set the hand value texts to the correct values
-        playerHandValue.setText("0");
-        dealerHandValue.setText("0");
+        playerHandValue.setText(String.valueOf(player));
+        dealerHandValue.setText(String.valueOf(dealer));
     }
 
     private void createAndAnimateCard(int face, boolean dealer, int indexInHand) {

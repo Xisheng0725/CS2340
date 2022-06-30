@@ -3,6 +3,7 @@ package com.cs2340.cs2340;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -29,6 +30,8 @@ public class ColorPage {
     public void formatColorScreen(Scene colorScene, Button colorBackReturn, StackPane colorPane, BorderPane colorBP, ImageView colorTitle, Button enterGame, Stage primaryStage, Scene colorGameScene) {
         MainPage.setButton(colorBackReturn);
         glow(colorBackReturn);
+        Image image = new Image("cursor.png");
+        colorGameScene.setCursor(new ImageCursor(image));
 
         colorBackReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -206,6 +209,8 @@ public class ColorPage {
     public void formatGameScreen(Scene colorGameScene, StackPane colorGamePane, BorderPane colorGame, ImageView colorGameTitle, Stage primaryStage) {
         gtcCounter = 0;
         Button colorBackBtn = new Button("Return");
+        Image image = new Image("cursor.png");
+        colorGameScene.setCursor(new ImageCursor(image));
         main.setButton(colorBackBtn);
         colorBackBtn.setTranslateX(30);
         colorBackBtn.setTranslateY(-30);
