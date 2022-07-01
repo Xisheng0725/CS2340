@@ -36,6 +36,10 @@ public class MainPage extends Application {
     private static BlackjackPage bjPage = new BlackjackPage();
     private static BlackjackInfoPage blackjackInfoPage = new BlackjackInfoPage();
 
+    public Pane bjGamePane = new Pane();
+    public Scene bjGameScene;
+
+
     /**
      * Create the main method.
      * Please add commons or JavaDocs description when you add something
@@ -130,8 +134,8 @@ public class MainPage extends Application {
 
 
         //Create Blackjack game page
-        Pane bjGamePane = new Pane();
-        Scene bjGameScene = new Scene(bjGamePane, 1200, 800);
+
+        bjGameScene = new Scene(bjGamePane, 1200, 800);
         bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
 
 
