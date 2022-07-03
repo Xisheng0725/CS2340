@@ -1,6 +1,7 @@
 package com.cs2340.cs2340;
 
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -10,6 +11,7 @@ import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -60,7 +62,7 @@ public class BlackjackPage {
         pane.getChildren().add(backBtn);
         backBtn.setOnAction(e -> {
             primaryStage.setScene(mainPage.getSelectScene());
-            reset();
+            reset2();
         });
 
         // Center card pile
@@ -155,6 +157,15 @@ public class BlackjackPage {
                 createAndAnimateCard(drawCard, dealer, index);
             }
         }
+        String check;
+        if (blackjackGame.won()) {
+            check = "won.PNG";
+        } else if (blackjackGame.tie()) {
+            check = "tie.PNG";
+        } else {
+            check = "lose.png";
+        }
+        BJEndPage(check, mainPage.bjGamePane, dealer);
     }
 
     private void initialGame(Hand DealerHand, Hand PlayerHand) {
@@ -187,14 +198,76 @@ public class BlackjackPage {
 
     }
 
-    public void reset() {
+    public void reset(boolean dealer) {
         pane = new Pane();
         scene.setRoot(pane);
-
+        blackjackGame.getDealerHand().getHand().clear();
+        blackjackGame.getPlayerHand().getHand().clear();
+        blackjackGame = new BlackjackGame();
+        dealer = false;
         // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // reset the blackjacklogic variable here
 
         formatGameScreen(scene, pane, primaryStage, mainPage);
+    }
+
+    public void reset2() {
+        pane = new Pane();
+        scene.setRoot(pane);
+        blackjackGame.getDealerHand().getHand().clear();
+        blackjackGame.getPlayerHand().getHand().clear();
+        blackjackGame = new BlackjackGame();
+        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // reset the blackjacklogic variable here
+
+        formatGameScreen(scene, pane, primaryStage, mainPage);
+    }
+
+
+    public void BJEndPage(String indicator, Pane BJGamePane, boolean dealer) {
+        String cssStyle = " -fx-text-fill: #006464;\n" +
+                "    -fx-background-color: #DFB951;\n" +
+                "    -fx-border-radius: 30;\n" +
+                "    -fx-background-radius: 30;\n" +
+                "    -fx-padding: 10;\n" +
+                "    -fx-font-size:40;";
+        ImageView BJOutcome = mainPage.getImageView(indicator, 400, 500);;
+        Button BJReturnBtn = new Button("Return");
+        makeGlow(BJReturnBtn);
+        BJReturnBtn.setStyle(cssStyle);
+        BJReturnBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                reset(dealer);
+                primaryStage.setScene(mainPage.getSelectScene());
+            }
+        });
+
+        HBox BJOptions = new HBox();
+
+        //Setup replay button
+        Button replayBtn = new Button("Replay");
+        makeGlow(replayBtn);
+        replayBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                formatGameScreen(mainPage.bjGameScene, pane, primaryStage, mainPage);
+                reset(dealer);
+            }
+        });
+        replayBtn.setStyle(cssStyle);
+        BJOptions.getChildren().addAll(replayBtn, BJReturnBtn);
+        BJOptions.setSpacing(40);
+        BJOptions.setTranslateX(475);
+        BJOptions.setTranslateY(500);
+        BJOutcome.setTranslateY(70);
+        BJOutcome.setTranslateX(300);
+
+        for(Node child : BJGamePane.getChildren()) {
+            child.setOpacity(0.5);
+        }
+
+        BJGamePane.getChildren().addAll(BJOutcome, BJOptions);
     }
 
     /**

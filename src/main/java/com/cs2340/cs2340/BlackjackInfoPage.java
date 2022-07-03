@@ -1,6 +1,7 @@
 package com.cs2340.cs2340;
 
 import javafx.event.EventHandler;
+import javafx.scene.ImageCursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
@@ -12,42 +13,40 @@ import javafx.stage.Stage;
  * The class that will create the menu and interface for the GTC game.
  */
 public class BlackjackInfoPage {
-    private static MainPage main= new MainPage();
-
     private BlackjackPage BJPage = new BlackjackPage();
-    public void formatBlackjackScreen(Button enterBlackjackGame, Button blackjackBackReturn, StackPane blackjackPane, BorderPane blackjackBP,
-                                      ImageView blackjackTitle, Stage primaryStage, Scene colorGameScene) {
+    private Scene scene;
+    private Stage primaryStage;
+    private MainPage main;
 
+    public void formatInfoScreen(Scene scene, Stage primaryStage, MainPage main, Scene bjGameScene) {
 
+        this.primaryStage = primaryStage;
+        this.main = main;
 
-        //Set the style of the return button.
-        MainPage.setButton(blackjackBackReturn);
-        BJPage.makeGlow(blackjackBackReturn);
-        blackjackBackReturn.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                primaryStage.setScene(main.getSelectScene());
-            }
-        });
+        Pane bjInfoPane = new Pane();
+        BorderPane blackjackBP = new BorderPane();
+        this.scene = scene;
+        ImageView infoBg = MainPage.getImageView("bj_info.png", 800, 1200);
+        bjInfoPane.getChildren().add(infoBg);
 
-        //set the style of the start game button.
+        Button blackjackBackBtn = new Button("Return");
+        ColorPage.glow((blackjackBackBtn));
+        MainPage.setButton(blackjackBackBtn);
+        blackjackBackBtn.setOnAction(e -> primaryStage.setScene(main.getSelectScene()));
+        Button enterBlackjackGame = new Button("Start Game");
+        ColorPage.glow((enterBlackjackGame));
         MainPage.setButton(enterBlackjackGame);
-        BJPage.makeGlow(enterBlackjackGame);
-        enterBlackjackGame.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                primaryStage.setScene(main.getSelectScene());
-            }
-        });
+        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(bjGameScene));
 
         HBox buttonHbox = new HBox(1030);
-        buttonHbox.getChildren().addAll(blackjackBackReturn, enterBlackjackGame);
+        buttonHbox.getChildren().addAll(blackjackBackBtn, enterBlackjackGame);
         buttonHbox.setTranslateX(30);
         buttonHbox.setTranslateY(-30);
         blackjackBP.setBottom(buttonHbox);
 
-
-        blackjackPane.getChildren().addAll(blackjackTitle, blackjackBP);
+        StackPane blackjackPane = new StackPane();
+        blackjackPane.getChildren().addAll(bjInfoPane, blackjackBP);
+        scene.setRoot(blackjackPane);
 
     }
 }
