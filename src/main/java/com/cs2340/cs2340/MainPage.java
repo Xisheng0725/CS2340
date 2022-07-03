@@ -34,10 +34,12 @@ public class MainPage extends Application {
 
     private static ColorPage colorPage = new ColorPage();
     private static BlackjackPage bjPage = new BlackjackPage();
-    private static BlackjackInfoPage blackjackInfoPage = new BlackjackInfoPage();
+    private static BlackjackInfoPage bjInfoPage = new BlackjackInfoPage();
 
     public Pane bjGamePane = new Pane();
+    public Pane bjInfoPane = new Pane();
     public Scene bjGameScene;
+    public Scene bjInfoScene;
 
 
     /**
@@ -138,22 +140,9 @@ public class MainPage extends Application {
         bjGameScene = new Scene(bjGamePane, 1200, 800);
         bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
 
-
         //Create the blackjack instruction page
-        BorderPane blackjackBP = new BorderPane();
-        StackPane blackjackPane = new StackPane();
-        Scene blackjackScene = new Scene(blackjackPane, 1200, 800);
-        blackjackScene.setCursor(new ImageCursor(image));
-        ImageView blackjackTitle = getImageView("bj_info.PNG", 800, 1200);
-        Button blackjackBackBtn = new Button("Return");
-        blackjackBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
-
-        Button enterBlackjackGame = new Button("Start Game");
-        enterBlackjackGame.setOnAction(e -> primaryStage.setScene(bjGameScene));
-
-        blackjackInfoPage.formatBlackjackScreen(enterBlackjackGame, blackjackBackBtn, blackjackPane, blackjackBP,
-                blackjackTitle, primaryStage, colorGameScene);
-
+        bjInfoScene = new Scene(bjInfoPane, 1200, 800);
+        bjInfoPage.formatInfoScreen(bjInfoScene, primaryStage, this, bjGameScene);
 
         // setButton Style
         gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
@@ -239,8 +228,7 @@ public class MainPage extends Application {
                 });
             }
         });
-        selectBjInfo.setOnAction(e -> primaryStage.setScene(blackjackScene));
-        //selectBjInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectBjInfo.setOnAction(e -> primaryStage.setScene(bjInfoScene));
         selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
         selectClrInfo.setOnAction(e -> primaryStage.setScene(colorScene));
 
