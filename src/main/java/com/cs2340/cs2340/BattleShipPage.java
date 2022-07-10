@@ -1,13 +1,16 @@
 package com.cs2340.cs2340;
 
+
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.scene.ImageCursor;
 
 public class BattleShipPage {
 
@@ -22,6 +25,10 @@ public class BattleShipPage {
         scene = bsGameScene;
         this.primaryStage = primaryStage;
         this.mainPage = mainPage;
+
+        //Set Cursor
+        Image image = new Image("cursor.png");
+        bsGameScene.setCursor(new ImageCursor(image));
 
         //Background
         ImageView bsBg = MainPage.getImageView("bg.PNG", 800,1200);
@@ -55,6 +62,7 @@ public class BattleShipPage {
         returnBtn.setTranslateX(30);
         returnBtn.setTranslateY(750);
         bsGamePane.getChildren().add(returnBtn);
+        ColorPage.glow((returnBtn));
         returnBtn.setOnAction(e -> {
             primaryStage.setScene(mainPage.getSelectScene());
         });
