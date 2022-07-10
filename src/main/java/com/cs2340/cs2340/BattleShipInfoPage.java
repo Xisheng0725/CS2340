@@ -32,12 +32,13 @@ public class BattleShipInfoPage {
         ColorPage.glow((battleshipBackBtn));
         MainPage.setButton(battleshipBackBtn);
         battleshipBackBtn.setOnAction(e -> primaryStage.setScene(main.getSelectScene()));
-        Button enterBattleshipGame = new Button("Start Game");
+        Button enterBattleshipGame = new Button("Next Page");
         ColorPage.glow((enterBattleshipGame));
         MainPage.setButton(enterBattleshipGame);
         enterBattleshipGame.setOnAction(e -> {
             if(currentPage == 1) {
                 currentPage = 2;
+                enterBattleshipGame.setText("Start Game");
                 infoBg.setImage(new Image("bs_info_page2.png"));
             } else {
                 primaryStage.setScene(bsGameScene);
