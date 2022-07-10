@@ -34,12 +34,18 @@ public class MainPage extends Application {
 
     private static ColorPage colorPage = new ColorPage();
     private static BlackjackPage bjPage = new BlackjackPage();
+    private static BattleShipPage bsPage = new BattleShipPage();
     private static BlackjackInfoPage bjInfoPage = new BlackjackInfoPage();
+    private static BattleShipInfoPage bsInfoPage = new BattleShipInfoPage();
 
     public Pane bjGamePane = new Pane();
     public Pane bjInfoPane = new Pane();
     public Scene bjGameScene;
     public Scene bjInfoScene;
+    public Pane bsGamePane = new Pane();
+    public Pane bsInfoPane = new Pane();
+    public Scene bsInfoScene;
+    public Scene bsGameScene;
 
 
     /**
@@ -133,10 +139,15 @@ public class MainPage extends Application {
         Button enterGame = new Button("Start Game");
         colorPage.formatColorScreen(colorScene, gameReturnButton, colorPane, colorBP, colorTitle, enterGame, primaryStage, colorGameScene);
 
+        //Create Battleship game page
+        bsGameScene = new Scene(bsGamePane, 1200, 800);
+        bsPage.formatGameScreen(bsGameScene, bsGamePane, primaryStage, this);
 
+        //Create Battleship instruction page
+        bsInfoScene = new Scene(bsInfoPane, 1200, 800);
+        bsInfoPage.formatInfoScreen(bsInfoScene, primaryStage, this, bsGameScene);
 
         //Create Blackjack game page
-
         bjGameScene = new Scene(bjGamePane, 1200, 800);
         bjPage.formatGameScreen(bjGameScene, bjGamePane, primaryStage, this);
 
@@ -229,12 +240,13 @@ public class MainPage extends Application {
             }
         });
         selectBjInfo.setOnAction(e -> primaryStage.setScene(bjInfoScene));
-        selectBsInfo.setOnAction(e -> primaryStage.setScene(tempScene));
+        selectBsInfo.setOnAction(e -> primaryStage.setScene(bsInfoScene));
         selectClrInfo.setOnAction(e -> primaryStage.setScene(colorScene));
 
         //Show primary stage
         primaryStage.show();
     }
+
     /**
      * change the button style.
      * @param selectReturn Return button
