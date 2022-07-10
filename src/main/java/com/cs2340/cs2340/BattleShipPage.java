@@ -1,7 +1,7 @@
 package com.cs2340.cs2340;
 
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
+import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -48,5 +48,15 @@ public class BattleShipPage {
         gp.setTranslateX(100);
         gp.setTranslateY(140);
         bsGamePane.getChildren().add(gp);
+
+        //Return Button
+        Button returnBtn = new Button("Return");
+        MainPage.setButton(returnBtn);
+        returnBtn.setTranslateX(30);
+        returnBtn.setTranslateY(750);
+        bsGamePane.getChildren().add(returnBtn);
+        returnBtn.setOnAction(e -> {
+            primaryStage.setScene(mainPage.getSelectScene());
+        });
     }
 }
