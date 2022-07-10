@@ -264,7 +264,6 @@ public class MainPage extends Application {
         selectBsInfo.setStyle((cssStyle));
         selectBjInfo.setStyle((cssStyle));
         selectClrInfo.setStyle((cssStyle));
-        //tempBackBtn.setStyle((cssStyle));
     }
     /**
      * change the layout of main page.
