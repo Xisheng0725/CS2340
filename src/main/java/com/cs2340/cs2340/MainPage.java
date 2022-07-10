@@ -107,14 +107,7 @@ public class MainPage extends Application {
 
 
         //Create temporary construction scene
-        Text tempTxt = new Text("This page is under construction...");
-        tempBackBtn = new Button("Return");
-        BorderPane tempBP = new BorderPane();
-        tempBP.setCenter(tempTxt);
-        tempBP.setBottom(tempBackBtn);
-        tempBackBtn.setOnAction(e -> primaryStage.setScene(selectScene));
-        tempBP.setPadding(new Insets(20, 20, 20, 20));
-        Scene tempScene = new Scene(tempBP, 1200, 800);
+
 
 
         // Create the Color Game game Page
@@ -156,7 +149,7 @@ public class MainPage extends Application {
         bjInfoPage.formatInfoScreen(bjInfoScene, primaryStage, this, bjGameScene);
 
         // setButton Style
-        gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, tempBackBtn, homeStartBtn);
+        gameButtonStyle(selectReturn, selectBsInfo, selectBjInfo, selectClrInfo, homeStartBtn);
 
         //Home Screen event mapping
         homeStartBtn.setOnAction(e -> primaryStage.setScene(selectScene));
@@ -209,7 +202,7 @@ public class MainPage extends Application {
                     public void handle(ActionEvent e) {
                         fadeBS.stop();
                         fadeClr.stop();
-                        primaryStage.setScene(tempScene);
+                        primaryStage.setScene(bsGameScene);
                     }
                 }) ;
             }
@@ -253,9 +246,8 @@ public class MainPage extends Application {
      * @param selectBsInfo Info button
      * @param selectBjInfo Info Button
      * @param selectClrInfo Info Button
-     * @param tempBackBtn Back Button
      */
-    private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button tempBackBtn, Button homeStartBtn) {
+    private void gameButtonStyle(Button selectReturn, Button selectBsInfo, Button selectBjInfo, Button selectClrInfo, Button homeStartBtn) {
         String cssStyle = " -fx-text-fill: #006464;\n" +
                 "    -fx-background-color: #DFB951;\n" +
                 "    -fx-border-radius: 20;\n" +
@@ -272,7 +264,7 @@ public class MainPage extends Application {
         selectBsInfo.setStyle((cssStyle));
         selectBjInfo.setStyle((cssStyle));
         selectClrInfo.setStyle((cssStyle));
-        tempBackBtn.setStyle((cssStyle));
+        //tempBackBtn.setStyle((cssStyle));
     }
     /**
      * change the layout of main page.
