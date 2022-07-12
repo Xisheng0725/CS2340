@@ -1,8 +1,8 @@
 package com.cs2340.cs2340;
-
-
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -19,7 +19,6 @@ public class BattleShipPage {
     private Scene scene;
     private Stage primaryStage;
     private MainPage mainPage;
-
 
     public void formatGameScreen(Scene bsGameScene, Pane bsGamePane, Stage primaryStage, MainPage mainPage) {
         scene = bsGameScene;
@@ -38,8 +37,8 @@ public class BattleShipPage {
         GridPane gp = new GridPane();
         Rectangle[][] board = new Rectangle[8][8];
         gp.setMinSize(1000, 1000);
-        gp.setHgap(1);
-        gp.setVgap(1);
+        gp.setHgap(2);
+        gp.setVgap(2);
         int rows = 8;
         int cols = 8;
         for (int i = 0; i < rows; i++) {
@@ -50,6 +49,7 @@ public class BattleShipPage {
                 board[i][j] = rect;
                 rect.setFill(Color.GREY);
                 gp.add(board[i][j], i, j);
+                shadow(rect);
             }
         }
         gp.setTranslateX(100);
@@ -65,6 +65,14 @@ public class BattleShipPage {
         ColorPage.glow((returnBtn));
         returnBtn.setOnAction(e -> {
             primaryStage.setScene(mainPage.getSelectScene());
+        });
+    }
+    public void shadow(Node node) {
+        node.setOnMouseEntered(e ->{
+            node.setEffect(new DropShadow(45, Color.PINK));
+        });
+        node.setOnMouseExited(e -> {
+            node.setEffect(new DropShadow(0, Color.PINK));
         });
     }
 }
