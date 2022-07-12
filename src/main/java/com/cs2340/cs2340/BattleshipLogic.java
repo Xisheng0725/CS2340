@@ -9,8 +9,7 @@ public class BattleshipLogic {
 
     private int maxGuess;
 
-    private BattleshipPattern BSP;
-
+    private BattleshipPattern BSP = new BattleshipPattern();
 
     private int numRemain;
 
