@@ -23,7 +23,7 @@ public class BattleshipLogic {
     }
 
     public void addPattern() {
-        pattern = BSP.getPattern(rand.nextInt(7));
+        pattern = BSP.getPattern(rand.nextInt(6));
     }
 
     /* to check whether hit the ship or not, should call this after each hit
