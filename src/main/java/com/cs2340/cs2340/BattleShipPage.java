@@ -1,14 +1,18 @@
 package com.cs2340.cs2340;
 
 
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.ImageCursor;
 
@@ -24,8 +28,8 @@ public class BattleShipPage {
         BJLogic = new BattleshipLogic();
     }
 
-
     public void formatGameScreen(Scene bsGameScene, Pane bsGamePane, Stage primaryStage, MainPage mainPage) {
+        BJLogic.addPattern();
         scene = bsGameScene;
         this.primaryStage = primaryStage;
         this.mainPage = mainPage;
@@ -52,8 +56,27 @@ public class BattleShipPage {
                 rect.setHeight(75);
                 rect.setWidth(75);
                 board[i][j] = rect;
-                rect.setFill(Color.GREY);
+                rect.setFill(Color.MIDNIGHTBLUE);
                 gp.add(board[i][j], i, j);
+
+                //if hit the ship, grid turns red; else turns white
+                rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent mouseEvent) {
+                        if (BJLogic.isHit(gp.getRowIndex(rect), gp.getColumnIndex(rect)) == true) {
+                            rect.setFill(Color.DARKRED);
+                        } else {
+                            rect.setFill(Color.WHITE);
+                        }
+
+                        //for result page checking
+                       /* if (BJLogic.winOrLose() == 1) {
+
+                        } else if (BJLogic.winOrLose() == -1) {
+
+                        }*/
+                    }
+                });
             }
         }
         gp.setTranslateX(100);

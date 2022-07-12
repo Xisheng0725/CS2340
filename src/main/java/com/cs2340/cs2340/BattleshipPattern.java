@@ -12,7 +12,6 @@ public class BattleshipPattern {
     }
 
     public char[][] getPattern(int rand) {
-        int[] whichPattern = new int[] {0, 1, 2, 3, 4, 5};
         char[][] pat1 = {{'.','.','.','.','.','.','.','.'}
                         ,{'.','.','/','.','.','/','/','/'}
                         ,{'/','.','/','.','.','.','.','.'}
@@ -63,7 +62,10 @@ public class BattleshipPattern {
                 ,{'.','.','.','.','/','/','/','.'}
                 ,{'/','/','/','.','.','.','.','.'}};
 
-        Collections. addAll(patArr, pat1, pat2, pat3, pat4, pat5, pat6);
+        Collections.addAll(patArr, pat1, pat2, pat3, pat4, pat5, pat6);
+        for (int i = 0; i < patArr.size(); i++) {
+            System.out.println(patArr.get(i));
+        }
         return patArr.get(rand);
     }
 

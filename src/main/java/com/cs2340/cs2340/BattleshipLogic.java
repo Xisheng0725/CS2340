@@ -20,6 +20,7 @@ public class BattleshipLogic {
     // get pattern and initialize game when call this constructor
     public BattleshipLogic() {
         this.BSP = new BattleshipPattern();
+        this.rand = new Random();
         this.maxGuess = 25;
         this.numRemain = 14;
     }
