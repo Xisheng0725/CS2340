@@ -9,7 +9,7 @@ public class BattleshipLogic {
 
     private int maxGuess;
 
-    private BattleshipPattern BSP = new BattleshipPattern();
+    private BattleshipPattern BSP;
 
     private int numRemain;
 
@@ -17,6 +17,7 @@ public class BattleshipLogic {
 
     // get pattern and initialize game when call this constructor
     public BattleshipLogic() {
+        this.BSP = new BattleshipPattern();
         this.pattern = BSP.getPattern(rand.nextInt(7));
         this.maxGuess = 25;
         this.numRemain = 14;
