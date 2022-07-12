@@ -1,5 +1,7 @@
 package com.cs2340.cs2340;
 
+import javafx.scene.control.Alert;
+
 import java.util.Random;
 
 public class BattleshipLogic {
@@ -33,10 +35,16 @@ public class BattleshipLogic {
         if (pattern[x][y] == '.') {
             maxGuess--;
             return false;
-        } else {
+        } else if (pattern[x][y] == '/') {
             maxGuess--;
             numRemain--;
+            pattern[x][y] = 'X';
             return true;
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "This box has been hit, please try another box");
+            alert.setTitle("Error");
+            alert.showAndWait();
+            return false;
         }
     }
     /* to check the game is win or lost
