@@ -21,7 +21,7 @@ public class BattleshipLogic {
     public BattleshipLogic() {
         this.BSP = new BattleshipPattern();
         this.rand = new Random();
-        this.maxGuess = 25;
+        this.maxGuess = 30;
         this.numRemain = 14;
     }
 
@@ -32,17 +32,18 @@ public class BattleshipLogic {
     /* to check whether hit the ship or not, should call this after each hit
      *
      */
-    public boolean isHit(int x, int y) {
+    public int isHit(int x, int y) {
         if (pattern[x][y] == '.') {
             maxGuess--;
-            return false;
+            pattern[x][y] = 'X';
+            return -1;
         } else if (pattern[x][y] == '/') {
             maxGuess--;
             numRemain--;
             pattern[x][y] = 'X';
-            return true;
+            return 1;
         } else {
-            return false;
+            return 0;
         }
     }
     /* to check the game is win or lost
