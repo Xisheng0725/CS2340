@@ -18,9 +18,12 @@ public class BattleshipLogic {
     // get pattern and initialize game when call this constructor
     public BattleshipLogic() {
         this.BSP = new BattleshipPattern();
-        this.pattern = BSP.getPattern(rand.nextInt(7));
         this.maxGuess = 25;
         this.numRemain = 14;
+    }
+
+    public void addPattern() {
+        pattern = BSP.getPattern(rand.nextInt(7));
     }
 
     /* to check whether hit the ship or not, should call this after each hit

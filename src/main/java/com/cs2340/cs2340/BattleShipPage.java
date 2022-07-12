@@ -14,11 +14,15 @@ import javafx.scene.ImageCursor;
 
 public class BattleShipPage {
 
-    public BattleShipPage() {
-    }
+
     private Scene scene;
     private Stage primaryStage;
     private MainPage mainPage;
+    private BattleshipLogic BJLogic;
+
+    public BattleShipPage() {
+        BJLogic = new BattleshipLogic();
+    }
 
 
     public void formatGameScreen(Scene bsGameScene, Pane bsGamePane, Stage primaryStage, MainPage mainPage) {
