@@ -41,9 +41,6 @@ public class BattleshipLogic {
             pattern[x][y] = 'X';
             return true;
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR, "This box has been hit, please try another box");
-            alert.setTitle("Error");
-            alert.showAndWait();
             return false;
         }
     }
