@@ -1,12 +1,8 @@
 package com.cs2340.cs2340;
-
-
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -19,19 +15,21 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.ImageCursor;
+import javafx.event.EventHandler;
+import javafx.scene.effect.Glow;
+import javafx.scene.effect.DropShadow;
 
 public class BattleShipPage {
-
 
     private Scene scene;
     private Stage primaryStage;
     private MainPage mainPage;
     private BattleshipLogic BJLogic;
-
+  
     public BattleShipPage() {
         BJLogic = new BattleshipLogic();
     }
-
+  
     public void formatGameScreen(Scene bsGameScene, Pane bsGamePane, Stage primaryStage, MainPage mainPage) {
         BJLogic.addPattern();
         scene = bsGameScene;
@@ -50,8 +48,8 @@ public class BattleShipPage {
         GridPane gp = new GridPane();
         Rectangle[][] board = new Rectangle[8][8];
         gp.setMinSize(1000, 1000);
-        gp.setHgap(1);
-        gp.setVgap(1);
+        gp.setHgap(2);
+        gp.setVgap(2);
         int rows = 8;
         int cols = 8;
         for (int i = 0; i < rows; i++) {
@@ -62,6 +60,7 @@ public class BattleShipPage {
                 board[i][j] = rect;
                 rect.setFill(Color.MIDNIGHTBLUE);
                 gp.add(board[i][j], i, j);
+                shadow(rect);
 
                 //if hit the ship, grid turns red; else turns white
                 rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -101,7 +100,7 @@ public class BattleShipPage {
             primaryStage.setScene(mainPage.getSelectScene());
         });
     }
-
+  
     public void BSEndPage(String indicator) {
         String cssStyle = " -fx-text-fill: #006464;\n" +
                 "    -fx-background-color: #DFB951;\n" +
@@ -158,7 +157,6 @@ public class BattleShipPage {
         formatGameScreen(mainPage.bsGameScene, mainPage.bsGamePane, primaryStage, mainPage);
     }
 
-
     public void makeGlow(Node node) {
         double glowAmount = 0.5;
         Glow glow = new Glow();
@@ -170,6 +168,14 @@ public class BattleShipPage {
         node.setOnMouseExited(e -> {
             glow.setLevel(0);
         });
-
+    }
+  
+    public void shadow(Node node) {
+        node.setOnMouseEntered(e ->{
+            node.setEffect(new DropShadow(45, Color.PINK));
+        });
+        node.setOnMouseExited(e -> {
+            node.setEffect(new DropShadow(0, Color.PINK));
+        });
     }
 }
