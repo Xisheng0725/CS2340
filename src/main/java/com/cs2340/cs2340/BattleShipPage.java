@@ -58,7 +58,8 @@ public class BattleShipPage {
                 rect.setHeight(75);
                 rect.setWidth(75);
                 board[i][j] = rect;
-                rect.setFill(Color.MIDNIGHTBLUE);
+                Color color = Color.rgb(40, 116, 166);
+                rect.setFill(color);
                 gp.add(board[i][j], i, j);
                 shadow(rect);
 
@@ -68,9 +69,11 @@ public class BattleShipPage {
                     public void handle(MouseEvent mouseEvent) {
                         int check = BJLogic.isHit(gp.getRowIndex(rect), gp.getColumnIndex(rect));
                         if (check == 1) {
-                            rect.setFill(Color.DARKRED);
+                            Color right = Color.rgb(241, 148, 138);
+                            rect.setFill(right);
                         } else if (check == -1) {
-                            rect.setFill(Color.WHITE);
+                            Color wrong = Color.rgb(189, 195, 199);
+                            rect.setFill(wrong);
                         } else if (check == 0) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "This box has Been boomed, Please try another one");
                             alert.showAndWait();
