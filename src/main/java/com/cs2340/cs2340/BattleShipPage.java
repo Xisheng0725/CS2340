@@ -1,15 +1,14 @@
 package com.cs2340.cs2340;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -43,6 +42,43 @@ public class BattleShipPage {
         //Background
         ImageView bsBg = MainPage.getImageView("bg.PNG", 800,1200);
         bsGamePane.getChildren().add(bsBg);
+
+        //ShipImages
+        ImageView ship2Holes1 = mainPage.getImageView("2HolesShip.png", 100, 200);
+        ImageView ship2Holes2 = mainPage.getImageView("2HolesShip.png", 100, 200);
+        ImageView ship3Holes1 = mainPage.getImageView("3HolesShip.png", 100, 255);
+        ImageView ship3Holes2 = mainPage.getImageView("3HolesShip.png", 100, 255);
+        ImageView ship4Holes = mainPage.getImageView("4HolesShip.png", 100, 350);
+
+        //Add ship images to VBox
+        VBox ships = new VBox();
+        ships.setTranslateX(770);
+        ships.setTranslateY(200);
+        HBox ship2HolesHbox = new HBox(ship2Holes1, ship2Holes2);
+        ship2HolesHbox.setSpacing(-70);
+        HBox ship3HolesHbox = new HBox(ship3Holes1, ship3Holes2);
+        ship3HolesHbox.setSpacing(-50);
+        ships.getChildren().addAll(ship2HolesHbox, ship3HolesHbox, ship4Holes);
+        bsGamePane.getChildren().add(ships);
+
+        //counters for game
+        String cssStyle = "    -fx-padding: 10;\n" +
+                "    -fx-font-size:50;" +
+                "    -fx-font:50px Copperplate";
+        Label triesLeft = new Label("30");
+        triesLeft.setStyle(cssStyle);
+        Label triesUsed = new Label("0");
+        triesUsed.setStyle(cssStyle);
+        Label hit = new Label("0");
+        hit.setStyle(cssStyle);
+
+        //Add counters to VBox and display
+        VBox counters = new VBox();
+        counters.getChildren().addAll(triesLeft, triesUsed, hit);
+        counters.setSpacing(-15);
+        counters.setTranslateX(1050);
+        counters.setTranslateY(500);
+        bsGamePane.getChildren().add(counters);
 
         //GridBoard
         GridPane gp = new GridPane();
