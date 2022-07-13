@@ -195,7 +195,6 @@ public class BlackjackPage {
         trans.setToX(endPosition.getX());
         trans.setToY(endPosition.getY());
         trans.play();
-
     }
 
     public void reset(boolean dealer) {

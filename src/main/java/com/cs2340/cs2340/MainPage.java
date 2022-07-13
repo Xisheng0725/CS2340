@@ -40,6 +40,7 @@ public class MainPage extends Application {
 
     public Pane bjGamePane = new Pane();
     public Pane bjInfoPane = new Pane();
+
     public Scene bjGameScene;
     public Scene bjInfoScene;
     public Pane bsGamePane = new Pane();
