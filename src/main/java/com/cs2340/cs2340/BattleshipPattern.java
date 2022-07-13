@@ -63,9 +63,6 @@ public class BattleshipPattern {
                 ,{'/','/','/','.','.','.','.','.'}};
 
         Collections.addAll(patArr, pat1, pat2, pat3, pat4, pat5, pat6);
-        for (int i = 0; i < patArr.size(); i++) {
-            System.out.println(patArr.get(i));
-        }
         return patArr.get(rand);
     }
 

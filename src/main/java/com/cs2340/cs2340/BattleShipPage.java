@@ -11,6 +11,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.ImageCursor;
@@ -24,9 +25,17 @@ public class BattleShipPage {
     private Stage primaryStage;
     private MainPage mainPage;
     private BattleshipLogic BJLogic;
+
+    private final int startingGuessCount;
+    private final int startingTargetCount;
+
+    private final ImageView[] ships = new ImageView[5];
+    private int[] damages = new int[5];
   
     public BattleShipPage() {
         BJLogic = new BattleshipLogic();
+        startingGuessCount = BJLogic.getMaxGuess();
+        startingTargetCount = BJLogic.getNumRemain();
     }
   
     public void formatGameScreen(Scene bsGameScene, Pane bsGamePane, Stage primaryStage, MainPage mainPage) {
@@ -43,42 +52,23 @@ public class BattleShipPage {
         ImageView bsBg = MainPage.getImageView("bg.PNG", 800,1200);
         bsGamePane.getChildren().add(bsBg);
 
-        //ShipImages
-        ImageView ship2Holes1 = mainPage.getImageView("2HolesShip.png", 100, 200);
-        ImageView ship2Holes2 = mainPage.getImageView("2HolesShip.png", 100, 200);
-        ImageView ship3Holes1 = mainPage.getImageView("3HolesShip.png", 100, 255);
-        ImageView ship3Holes2 = mainPage.getImageView("3HolesShip.png", 100, 255);
-        ImageView ship4Holes = mainPage.getImageView("4HolesShip.png", 100, 350);
+        // Ships
+        initShips();
+        bsGamePane.getChildren().addAll(ships);
 
-        //Add ship images to VBox
-        VBox ships = new VBox();
-        ships.setTranslateX(770);
-        ships.setTranslateY(200);
-        HBox ship2HolesHbox = new HBox(ship2Holes1, ship2Holes2);
-        ship2HolesHbox.setSpacing(-70);
-        HBox ship3HolesHbox = new HBox(ship3Holes1, ship3Holes2);
-        ship3HolesHbox.setSpacing(-50);
-        ships.getChildren().addAll(ship2HolesHbox, ship3HolesHbox, ship4Holes);
-        bsGamePane.getChildren().add(ships);
-
-        //counters for game
-        String cssStyle = "    -fx-padding: 10;\n" +
-                "    -fx-font-size:50;" +
-                "    -fx-font:50px Copperplate";
-        Label triesLeft = new Label("30");
-        triesLeft.setStyle(cssStyle);
-        Label triesUsed = new Label("0");
-        triesUsed.setStyle(cssStyle);
-        Label hit = new Label("0");
-        hit.setStyle(cssStyle);
-
-        //Add counters to VBox and display
-        VBox counters = new VBox();
-        counters.getChildren().addAll(triesLeft, triesUsed, hit);
-        counters.setSpacing(-15);
-        counters.setTranslateX(1050);
-        counters.setTranslateY(500);
-        bsGamePane.getChildren().add(counters);
+        // Remaining guesses text
+        Font valueFont = new Font("verdana", 56);
+        Color textColor = new Color(.3, .3, .3, 1);
+        Text remainingGuesses = new Text(1035, 568, ""+BJLogic.getMaxGuess());
+        remainingGuesses.setFont(valueFont);
+        remainingGuesses.setFill(textColor);
+        Text guessesUsed = new Text(1035, 648, ""+(startingGuessCount - BJLogic.getMaxGuess()));
+        guessesUsed.setFont(valueFont);
+        guessesUsed.setFill(textColor);
+        Text hits = new Text(1035, 725, ""+(startingTargetCount - BJLogic.getNumRemain()));
+        hits.setFont(valueFont);
+        hits.setFill(textColor);
+        bsGamePane.getChildren().addAll(remainingGuesses, guessesUsed, hits);
 
         //GridBoard
         GridPane gp = new GridPane();
@@ -104,6 +94,9 @@ public class BattleShipPage {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
                         int check = BJLogic.isHit(gp.getRowIndex(rect), gp.getColumnIndex(rect));
+                        remainingGuesses.setText(""+BJLogic.getMaxGuess());
+                        guessesUsed.setText(""+(startingGuessCount - BJLogic.getMaxGuess()));
+                        hits.setText(""+(startingTargetCount - BJLogic.getNumRemain()));
                         if (check == 1) {
                             Color right = Color.rgb(241, 148, 138);
                             rect.setFill(right);
@@ -116,9 +109,9 @@ public class BattleShipPage {
                         }
 
                        if (BJLogic.winOrLose() == 1) {
-                           BSEndPage("won.PNG");
+                           BSEndPage("bs_win.PNG");
                        } else if (BJLogic.winOrLose() == -1) {
-                           BSEndPage("lose.PNG");
+                           BSEndPage("bs_lose.PNG");
                        }
                     }
                 });
@@ -216,5 +209,50 @@ public class BattleShipPage {
         node.setOnMouseExited(e -> {
             node.setEffect(new DropShadow(0, Color.PINK));
         });
+    }
+
+    private void initShips() {
+        ships[0] = MainPage.getImageView("2holes_ship.PNG", 95, 400);
+        ships[1] = MainPage.getImageView("2holes_ship.PNG", 95, 400);
+
+        ships[2] = MainPage.getImageView("3holes_ship.PNG", 95, 400);
+        ships[3] = MainPage.getImageView("3holes_ship.PNG", 95, 400);
+
+        ships[4] = MainPage.getImageView("4holes_ship.PNG", 95, 400);
+
+        for (int i = 0; i < 5; i++) {
+            ships[i].setTranslateY(180 + i * 60);
+            ships[i].setTranslateX(790);
+        }
+        damages = new int[5];
+    }
+
+    private void hit(int index) {
+        String prefix = "";
+        int max = 0;
+        switch (index) {
+            case 0:
+            case 1:
+                prefix = "2holes_";
+                max = 2;
+                break;
+            case 2:
+            case 3:
+                prefix = "3holes_";
+                max = 3;
+                break;
+            case 4:
+                prefix = "4holes_";
+                max = 4;
+                break;
+        }
+        damages[index] += 1;
+        String suffix = "";
+        if (damages[index] >= max) {
+            suffix = "sunk.png";
+        } else {
+            suffix = "damage" + damages[index] + ".png";
+        }
+        ships[index] = MainPage.getImageView(prefix + suffix, 95, 400);
     }
 }
