@@ -6,10 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
@@ -43,6 +40,18 @@ public class BattleShipPage {
         //Background
         ImageView bsBg = MainPage.getImageView("bg.PNG", 800,1200);
         bsGamePane.getChildren().add(bsBg);
+
+        //ShipImages
+        ImageView ship2Holes1 = MainPage.getImageView("2holes_ship.PNG", 200, 300);
+        ImageView ship2Holes2 = MainPage.getImageView("2holes_ship.png", 200, 300);
+        ImageView ship3Holes1 = MainPage.getImageView("3holes_ship.png", 200, 400);
+        ImageView ship3Holes2 = MainPage.getImageView("3holes_ship.png", 200, 400);
+        ImageView ship4Holes = MainPage.getImageView("4holes_ship.png", 200, 500);
+
+        //Add ship images to VBox
+        VBox ships = new VBox();
+        ships.getChildren().addAll(ship2Holes1, ship2Holes2, ship3Holes1, ship3Holes2, ship4Holes);
+        bsGamePane.getChildren().add(ships);
 
         //GridBoard
         GridPane gp = new GridPane();
