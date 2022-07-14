@@ -18,6 +18,7 @@ import javafx.scene.ImageCursor;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.DropShadow;
+import static java.lang.Character.getNumericValue;
 
 public class BattleShipPage {
 
@@ -106,6 +107,12 @@ public class BattleShipPage {
                         } else if (check == 0) {
                             Alert alert = new Alert(Alert.AlertType.INFORMATION, "This box has Been boomed, Please try another one");
                             alert.showAndWait();
+                        }
+
+                        //change ship pattern
+                        char shipNum = BJLogic.getPattern()[gp.getRowIndex(rect)][gp.getColumnIndex(rect)];
+                        if (shipNum == '0' || shipNum == '1' || shipNum == '2' || shipNum == '3' || shipNum == '4') {
+                            hit(getNumericValue(shipNum));
                         }
 
                        if (BJLogic.winOrLose() == 1) {
