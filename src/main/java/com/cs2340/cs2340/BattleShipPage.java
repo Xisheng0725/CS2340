@@ -18,6 +18,7 @@ import javafx.scene.ImageCursor;
 import javafx.event.EventHandler;
 import javafx.scene.effect.Glow;
 import javafx.scene.effect.DropShadow;
+import static java.lang.Character.getNumericValue;
 
 public class BattleShipPage {
 
@@ -93,6 +94,19 @@ public class BattleShipPage {
                 rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent mouseEvent) {
+
+                        //change ship pattern
+                        char shipChar = BJLogic.getPattern()[gp.getRowIndex(rect)][gp.getColumnIndex(rect)];
+                        if (shipChar == '0' || shipChar == '1' ||shipChar == '2' || shipChar == '3' || shipChar == '4') {
+                            int shipNum = getNumericValue(shipChar);
+                            String fileName = hit(shipNum);
+                            ImageView newImageView = MainPage.getImageView(fileName, 95, 400);
+                            newImageView.setTranslateY(180 + shipNum * 60);
+                            newImageView.setTranslateX(790);
+                            bsGamePane.getChildren().add(newImageView);
+                        }
+
+                        //change grid color
                         int check = BJLogic.isHit(gp.getRowIndex(rect), gp.getColumnIndex(rect));
                         remainingGuesses.setText(""+BJLogic.getMaxGuess());
                         guessesUsed.setText(""+(startingGuessCount - BJLogic.getMaxGuess()));
@@ -227,9 +241,10 @@ public class BattleShipPage {
         damages = new int[5];
     }
 
-    private void hit(int index) {
-        String prefix = "";
+    private String hit(int index) {
         int max = 0;
+        String prefix = "";
+        String suffix;
         switch (index) {
             case 0:
             case 1:
@@ -246,13 +261,13 @@ public class BattleShipPage {
                 max = 4;
                 break;
         }
+
         damages[index] += 1;
-        String suffix = "";
         if (damages[index] >= max) {
             suffix = "sunk.png";
         } else {
             suffix = "damage" + damages[index] + ".png";
         }
-        ships[index] = MainPage.getImageView(prefix + suffix, 95, 400);
+        return prefix + suffix;
     }
 }

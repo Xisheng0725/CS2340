@@ -37,7 +37,9 @@ public class BattleshipLogic {
             maxGuess--;
             pattern[x][y] = 'X';
             return -1;
-        } else if (pattern[x][y] == '/') {
+        } else if (pattern[x][y] == '0' || pattern[x][y] == '1'
+                   || pattern[x][y] == '2' || pattern[x][y] == '3'
+                   || pattern[x][y] == '4') {
             maxGuess--;
             numRemain--;
             pattern[x][y] = 'X';
